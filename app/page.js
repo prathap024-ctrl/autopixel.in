@@ -32,8 +32,8 @@ export default function Home() {
         <LandingPage />
       )}
       <VapiWidget
-        apiKey={process.env.VAPI_API_KEY}
-        assistantId={process.env.VAPI_ASSISTANT_API_KEY}
+        apiKey={process.env.NEXT_PUBLIC_VAPI_API_KEY}
+        assistantId={process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID}
       />
     </div>
   );
