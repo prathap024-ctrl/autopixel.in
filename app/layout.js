@@ -1,6 +1,4 @@
-import { NavbarLayout } from "@/layouts/Navbar";
 import "./globals.css";
-import FooterLayout from "@/layouts/footer";
 import { Outfit } from "next/font/google";
 
 export const metadata = {
@@ -19,9 +17,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body style={outfit.style}>
-        <NavbarLayout />
         {children}
-        <FooterLayout />
       </body>
     </html>
   );

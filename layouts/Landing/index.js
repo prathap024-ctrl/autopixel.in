@@ -341,13 +341,13 @@ export default function LandingPage() {
                 </Link>
               </div>
             </div>
-            <div className="relative mt-16 h-80 lg:mt-8">
+            <div className="relative mt-16 lg:mt-8 w-full max-w-md lg:max-w-lg">
               <Image
                 alt="App screenshot"
                 src="/build.svg"
                 width={1824}
                 height={1080}
-                className="absolute top-0 left-0 w-228 max-w-none rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10"
+                className="bg-white/5 w-full h-auto"
               />
             </div>
           </div>

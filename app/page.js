@@ -6,6 +6,8 @@ import VapiWidget from "@/layouts/vapi";
 import useStore from "@/store/zustand";
 import { LoaderTwo } from "@/components/ui/loader";
 import { useEffect } from "react";
+import { NavbarLayout } from "@/layouts/Navbar";
+import FooterLayout from "@/layouts/footer";
 
 export default function Home() {
   const loading = useStore((state) => state.isLoading);
@@ -31,9 +33,13 @@ export default function Home() {
           <LoaderTwo />
         </div>
       ) : (
-        <LandingPage />
+        <>
+          <NavbarLayout />
+          <LandingPage />
+          <VapiWidget apiKey={apiKey} assistantId={assistantId} />
+          <FooterLayout />
+        </>
       )}
-      <VapiWidget apiKey={apiKey} assistantId={assistantId} />
     </div>
   );
 }
