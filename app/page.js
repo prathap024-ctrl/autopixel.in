@@ -20,6 +20,8 @@ export default function Home() {
 
     return () => clearTimeout(timer);
   }, [setLoading]);
+  const apiKey = process.env.NEXT_PUBLIC_VAPI_API_KEY;
+  const assistantId = process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
 
   return (
     <div>
@@ -31,10 +33,7 @@ export default function Home() {
       ) : (
         <LandingPage />
       )}
-      <VapiWidget
-        apiKey={process.env.NEXT_PUBLIC_VAPI_API_KEY}
-        assistantId={process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID}
-      />
+      <VapiWidget apiKey={apiKey} assistantId={assistantId} />
     </div>
   );
 }
