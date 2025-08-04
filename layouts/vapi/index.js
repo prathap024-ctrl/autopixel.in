@@ -55,9 +55,14 @@ const VapiWidget = ({ apiKey, assistantId, config = {} }) => {
     };
   }, [apiKey, setTranscript, setVapi]);
 
-  const startCall = () => {
-    if (vapi) {
-      vapi.start(assistantId);
+  const startCall = async () => {
+    try {
+      await navigator.mediaDevices.getUserMedia({ audio: true });
+      if (vapi) {
+        await vapi.start(assistantId);
+      }
+    } catch (error) {
+      console.error("Microphone access failed or unsupported platform:", error);
     }
   };
 
@@ -68,154 +73,160 @@ const VapiWidget = ({ apiKey, assistantId, config = {} }) => {
   };
 
   return (
-<div
-  style={{
-    position: "fixed",
-    bottom: "24px",
-    right: "24px",
-    zIndex: 1000,
-    fontFamily: '"Poppins", "Outfit", sans-serif',
-  }}
->
-  {!isConnected ? (
-    <button
-      onClick={startCall}
-      style={{
-        background: "#111827", // gray-900
-        color: "#ffffff",
-        border: "2px solid #ffffff",
-        borderRadius: "50px",
-        padding: "16px 24px",
-        fontSize: "16px",
-        fontWeight: "600",
-        cursor: "pointer",
-        transition: "all 0.3s ease",
-      }}
-      onMouseOver={(e) => {
-        e.currentTarget.style.transform = "translateY(-2px)";
-        e.currentTarget.style.boxShadow = "0 6px 16px rgba(255, 255, 255, 0.2)";
-      }}
-      onMouseOut={(e) => {
-        e.currentTarget.style.transform = "translateY(0)";
-        e.currentTarget.style.boxShadow = "none";
-      }}
-    >
-      🎤 Talk to Assistant
-    </button>
-  ) : (
     <div
       style={{
-        background: "linear-gradient(to bottom, #111827, #000000)",
-        borderRadius: "16px",
-        padding: "28px",
-        width: "420px",
-        boxShadow: "0 12px 32px rgba(0, 0, 0, 0.6)",
-        border: "1px solid #1f2937",
-        color: "#ffffff",
+        position: "fixed",
+        bottom: "24px",
+        right: "24px",
+        zIndex: 1000,
+        fontFamily: '"Poppins", "Outfit", sans-serif',
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginBottom: "20px",
-        }}
-      >
-        <div
+      {!isConnected ? (
+        <button
+          onClick={startCall}
+          className="talk-button"
           style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
+            background: "#111827", // gray-900
+            color: "#ffffff",
+            border: "2px solid #ffffff",
+            borderRadius: "50px",
+            padding: "16px 24px",
+            fontSize: "16px",
+            fontWeight: "600",
+            cursor: "pointer",
+            transition: "all 0.3s ease",
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.transform = "translateY(-2px)";
+            e.currentTarget.style.boxShadow =
+              "0 6px 16px rgba(255, 255, 255, 0.2)";
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.transform = "translateY(0)";
+            e.currentTarget.style.boxShadow = "none";
+          }}
+        >
+          🎤 Talk to Assistant
+        </button>
+      ) : (
+        <div
+          className="assistant-container"
+          style={{
+            background: "linear-gradient(to bottom, #111827, #000000)",
+            borderRadius: "16px",
+            padding: "28px",
+            width: "420px",
+            boxShadow: "0 12px 32px rgba(0, 0, 0, 0.6)",
+            border: "1px solid #1f2937",
+            color: "#ffffff",
           }}
         >
           <div
             style={{
-              width: "12px",
-              height: "12px",
-              borderRadius: "50%",
-              background: isSpeaking ? "#EF4444" : "#10B981",
-              animation: isSpeaking ? "pulse 1s infinite" : "none",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "20px",
             }}
-          ></div>
-          <span style={{ fontWeight: "600" }}>
-            {isSpeaking ? "Assistant Speaking..." : "Listening..."}
-          </span>
-        </div>
-        <button
-          onClick={endCall}
-          style={{
-            background: "#EF4444",
-            color: "#fff",
-            border: "none",
-            borderRadius: "6px",
-            padding: "6px 12px",
-            fontSize: "12px",
-            cursor: "pointer",
-          }}
-        >
-          End Call
-        </button>
-      </div>
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+              }}
+            >
+              <div
+                style={{
+                  width: "12px",
+                  height: "12px",
+                  borderRadius: "50%",
+                  background: isSpeaking ? "#EF4444" : "#10B981",
+                  animation: isSpeaking ? "pulse 1s infinite" : "none",
+                }}
+              ></div>
+              <span style={{ fontWeight: "600" }}>
+                {isSpeaking ? "Assistant Speaking..." : "Listening..."}
+              </span>
+            </div>
+            <button
+              className="end-call-btn"
+              onClick={endCall}
+              style={{
+                background: "#EF4444",
+                color: "#fff",
+                border: "none",
+                borderRadius: "6px",
+                padding: "6px 12px",
+                fontSize: "12px",
+                cursor: "pointer",
+              }}
+            >
+              End Call
+            </button>
+          </div>
 
-      <div
-        style={{
-          maxHeight: "300px",
-          overflowY: "auto",
-          marginBottom: "20px",
-          padding: "10px",
-          borderRadius: "12px",
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-        }}
-      >
-        <style>{`
+          <div
+            className="transcript-box"
+            style={{
+              maxHeight: "300px",
+              overflowY: "auto",
+              marginBottom: "20px",
+              padding: "10px",
+              borderRadius: "12px",
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+            }}
+          >
+            <style>{`
           div::-webkit-scrollbar {
             display: none;
           }
         `}</style>
-        {transcript.length === 0 ? (
-          <p style={{ color: "#9CA3AF", fontSize: "14px", margin: 0 }}>
-            Conversation will appear here...
-          </p>
-        ) : (
-          transcript
-            .filter(
-              (msg, index, self) =>
-                index === 0 || msg.text !== self[index - 1].text
-            )
-            .map((msg, i) => (
-              <div
-                key={i}
-                style={{
-                  marginBottom: "10px",
-                  textAlign: msg.role === "user" ? "right" : "left",
-                }}
-              >
-                <span
-                  style={{
-                    background:
-                      msg.role === "user" ? "#10B981" : "transparent",
-                    color: "#ffffff",
-                    padding: "10px 14px",
-                    borderRadius: "14px",
-                    display: "inline-block",
-                    fontSize: "14px",
-                    maxWidth: "80%",
-                    border:
-                      msg.role === "user" ? "none" : "1px solid #4B5563", // subtle border for assistant
-                  }}
-                >
-                  {msg.text}
-                </span>
-              </div>
-            ))
-        )}
-      </div>
-    </div>
-  )}
+            {transcript.length === 0 ? (
+              <p style={{ color: "#9CA3AF", fontSize: "14px", margin: 0 }}>
+                Conversation will appear here...
+              </p>
+            ) : (
+              transcript
+                .filter(
+                  (msg, index, self) =>
+                    index === 0 || msg.text !== self[index - 1].text
+                )
+                .map((msg, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      marginBottom: "10px",
+                      textAlign: msg.role === "user" ? "right" : "left",
+                    }}
+                  >
+                    <span
+                      className="message-bubble"
+                      style={{
+                        background:
+                          msg.role === "user" ? "#10B981" : "transparent",
+                        color: "#ffffff",
+                        padding: "10px 14px",
+                        borderRadius: "14px",
+                        display: "inline-block",
+                        fontSize: "14px",
+                        maxWidth: "80%",
+                        border:
+                          msg.role === "user" ? "none" : "1px solid #4B5563", // subtle border for assistant
+                      }}
+                    >
+                      {msg.text}
+                    </span>
+                  </div>
+                ))
+            )}
+          </div>
+        </div>
+      )}
 
-  <style>{`
+      <style>{`
     @keyframes pulse {
       0% { opacity: 1; }
       50% { opacity: 0.5; }
@@ -223,9 +234,37 @@ const VapiWidget = ({ apiKey, assistantId, config = {} }) => {
     }
 
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&family=Poppins:wght@400;600&display=swap');
-  `}</style>
-</div>
 
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .talk-button {
+        padding: 12px 18px !important;
+        font-size: 14px !important;
+      }
+
+      .assistant-container {
+        width: 90% !important;
+        padding: 20px !important;
+        bottom: 16px !important;
+        right: 16px !important;
+      }
+
+      .transcript-box {
+        max-height: 220px !important;
+      }
+
+      .message-bubble {
+        font-size: 13px !important;
+        padding: 8px 12px !important;
+      }
+
+      .end-call-btn {
+        padding: 5px 10px !important;
+        font-size: 11px !important;
+      }
+    }
+  `}</style>
+    </div>
   );
 };
 
