@@ -53,8 +53,6 @@ const features = [
 
 const texts = ["AI Automation", "Digital Marketing", "Web Solutions"];
 
-const Skeleton = () => <div></div>;
-
 const items = [
   {
     title: "AI-Driven Ad Campaigns",
