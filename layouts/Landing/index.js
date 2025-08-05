@@ -51,7 +51,7 @@ const features = [
   },
 ];
 
-const texts = ["AI Automation", "Digital Marketing", "Smart Web Solutions"];
+const texts = ["AI Automation", "Digital Marketing", "Web Solutions"];
 
 const Skeleton = () => <div></div>;
 
