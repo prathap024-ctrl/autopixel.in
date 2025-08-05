@@ -1,5 +1,7 @@
+import { NavbarLayout } from "@/layouts/Navbar";
 import "./globals.css";
 import { Outfit } from "next/font/google";
+import FooterLayout from "@/layouts/footer";
 
 export const metadata = {
   title: "AutoPixel",
@@ -17,7 +19,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body style={outfit.style}>
+        <NavbarLayout />
         {children}
+        <FooterLayout />
       </body>
     </html>
   );
