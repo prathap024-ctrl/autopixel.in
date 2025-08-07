@@ -1,18 +1,43 @@
+// Optimized and organized FloatingDock component
+"use client";
+
 import { useEffect, useRef, useState } from "react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  MessageCircle,
+  Mail,
+  FileText,
+  Bot,
   Mic,
   Paperclip,
   RefreshCw,
   Send,
-  MessageCircle,
   X,
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
-export default function Chatbot() {
+const supportedLanguages = [
+  { code: "auto", label: "Auto Detect" },
+  { code: "hi-IN", label: "Hindi" },
+  { code: "ta-IN", label: "Tamil" },
+  { code: "te-IN", label: "Telugu" },
+  { code: "kn-IN", label: "Kannada" },
+  { code: "ml-IN", label: "Malayalam" },
+  { code: "mr-IN", label: "Marathi" },
+  { code: "bn-IN", label: "Bengali" },
+  { code: "gu-IN", label: "Gujarati" },
+  { code: "pa-IN", label: "Punjabi" },
+  { code: "ur-IN", label: "Urdu" },
+];
+
+export default function FloatingDock() {
   const [showChat, setShowChat] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -28,27 +53,35 @@ export default function Chatbot() {
   const messagesEndRef = useRef(null);
   const recognitionRef = useRef(null);
 
-  const supportedLanguages = [
-    { code: "auto", label: "Auto Detect" },
-    { code: "hi-IN", label: "Hindi" },
-    { code: "ta-IN", label: "Tamil" },
-    { code: "te-IN", label: "Telugu" },
-    { code: "kn-IN", label: "Kannada" },
-    { code: "ml-IN", label: "Malayalam" },
-    { code: "mr-IN", label: "Marathi" },
-    { code: "bn-IN", label: "Bengali" },
-    { code: "gu-IN", label: "Gujarati" },
-    { code: "pa-IN", label: "Punjabi" },
-    { code: "ur-IN", label: "Urdu" },
-  ];
+  useEffect(() => {
+    const saved = localStorage.getItem("chat-history");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) setMessages(parsed);
+      } catch (e) {
+        console.warn("Failed to parse saved chat history:", e);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("chat-history", JSON.stringify(messages));
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isTyping]);
+
+  const formatTime = (date) =>
+    new Date(date).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
 
   const handleSend = () => {
     if (!input.trim()) return;
-    const newMessages = [
-      ...messages,
+    setMessages((prev) => [
+      ...prev,
       { from: "user", text: input, timestamp: new Date() },
-    ];
-    setMessages(newMessages);
+    ]);
     setIsTyping(true);
 
     setTimeout(() => {
@@ -62,36 +95,6 @@ export default function Chatbot() {
     setInput("");
   };
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("chat-history");
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed)) {
-            setMessages(parsed);
-          }
-        } catch (e) {
-          console.warn("Failed to parse saved chat history:", e);
-        }
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("chat-history", JSON.stringify(messages));
-    }
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isTyping]);
-
-  const formatTime = (date) => {
-    return new Date(date).toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
-
   const handleVoice = () => {
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -103,17 +106,14 @@ export default function Chatbot() {
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
     recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript;
-      setInput(transcript);
+      setInput(event.results[0][0].transcript);
     };
     recognition.onerror = (err) => alert("Voice error: " + err.error);
     recognition.start();
   };
 
   const clearChat = () => {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("chat-history");
-    }
+    localStorage.removeItem("chat-history");
     setMessages([
       {
         from: "bot",
@@ -123,23 +123,77 @@ export default function Chatbot() {
     ]);
   };
 
-  return (
-    <>
-      {!showChat && (
-        <button
-          onClick={() => setShowChat(true)}
-          className="fixed bottom-4 right-4 bg-black hover:bg-gray-900 text-white p-4 rounded-full shadow-lg z-50 cursor-pointer"
-        >
-          <MessageCircle className="h-6 w-6" />
-        </button>
-      )}
+  const openWhatsApp = () => {
+    window.open("https://wa.me/918105871804", "_blank");
+  };
 
-      {/* Chatbox UI with slide/fade animation */}
+  const openForm = () => {
+    window.open("https://forms.gle/cdiqS6rrLR1Vds5U9", "_blank");
+  };
+
+  const sendEmail = () => {
+    const gmailURL =
+      "https://mail.google.com/mail/?view=cm&fs=1&to=autopixel.in@gmail.com&su=Contact%20Request&body=Hi%2C%20I%20would%20like%20to%20connect.";
+    window.open(gmailURL, "_blank", "noopener,noreferrer");
+  };
+
+  const handleChatbotClick = () => {
+    setShowChat(true);
+    document.activeElement?.blur();
+  };
+
+  return (
+    <div className="fixed bottom-6 right-6 z-50">
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button
+            className="rounded-full h-14 w-14 p-0 shadow-xl"
+            variant="default"
+          >
+            <MessageCircle className="h-6 w-6" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent
+          align="end"
+          className="flex flex-col gap-2 p-4 w-48 bg-black"
+        >
+          <Button
+            variant="default"
+            onClick={openWhatsApp}
+            className="justify-start gap-2 bg-transparent hover:bg-transparent"
+          >
+            <MessageCircle className="h-4 w-4 text-green-500" /> WhatsApp
+          </Button>
+          <Button
+            variant="default"
+            onClick={openForm}
+            className="justify-start gap-2 bg-transparent hover:bg-transparent"
+          >
+            <FileText className="h-4 w-4 text-blue-500" /> Open Form
+          </Button>
+          <Button
+            variant="default"
+            onClick={sendEmail}
+            className="justify-start gap-2 bg-transparent hover:bg-transparent"
+          >
+            <Mail className="h-4 w-4 text-yellow-500" /> Email Us
+          </Button>
+          {!showChat && (
+            <Button
+              variant="default"
+              onClick={handleChatbotClick}
+              className="justify-start gap-2 bg-transparent hover:bg-transparent"
+            >
+              <Bot className="h-4 w-4 text-white" /> ChatBot
+            </Button>
+          )}
+        </PopoverContent>
+      </Popover>
+
       {showChat && (
-        <div className="fixed bottom-4 right-4 w-full max-w-md z-50 transition-all duration-300 ease-in-out transform animate-fadeInUp">
+        <div className="fixed bottom-4 right-4 w-full max-w-md z-50 animate-fadeInUp">
           <div className="flex flex-col h-[600px] bg-gradient-to-b from-gray-900 to-black text-white p-4 rounded-2xl shadow-xl">
-            <Card className="flex flex-col flex-grow overflow-hidden rounded-2xl shadow-lg bg-transparent text-white">
-              {/* Close button inside */}
+            <Card className="flex flex-col flex-grow overflow-hidden rounded-2xl bg-transparent text-white">
               <div className="flex justify-between items-center px-4">
                 <h2 className="text-lg font-semibold">AI Assistant</h2>
                 <Button
@@ -150,7 +204,6 @@ export default function Chatbot() {
                   <X className="w-5 h-5" />
                 </Button>
               </div>
-
               <CardContent className="flex flex-col flex-grow p-4 overflow-y-auto gap-3">
                 {messages.map((msg, index) => (
                   <div
@@ -172,17 +225,14 @@ export default function Chatbot() {
                 )}
                 <div ref={messagesEndRef} />
               </CardContent>
-
-              {/* Input + Controls */}
-              <div className="flex flex-col gap-2 p-4 border-t bg-transparent">
+              <div className="flex flex-col gap-2 p-4 border-t">
                 <Input
                   placeholder="Type your message..."
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  className="w-full"
                   onKeyDown={(e) => e.key === "Enter" && handleSend()}
                 />
-                <div className="flex flex-wrap gap-2 justify-between items-center">
+                <div className="flex justify-between items-center gap-2 flex-wrap">
                   <div className="flex gap-2 flex-wrap">
                     <select
                       value={language}
@@ -216,6 +266,6 @@ export default function Chatbot() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

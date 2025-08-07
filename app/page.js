@@ -2,11 +2,10 @@
 
 import LandingPage from "@/layouts/Landing";
 import { ScrollProgress } from "@/components/magicui/scroll-progress";
-import VapiWidget from "@/layouts/vapi";
 import useStore from "@/store/zustand";
 import { LoaderTwo } from "@/components/ui/loader";
 import { useEffect } from "react";
-import Chatbot from "@/layouts/chatbot";
+import FloatingDock from "@/layouts/mobilemenu";
 
 export default function Home() {
   const loading = useStore((state) => state.isLoading);
@@ -34,7 +33,7 @@ export default function Home() {
       ) : (
         <>
           <LandingPage />
-          <Chatbot />
+          <FloatingDock />
           {/*<VapiWidget apiKey={apiKey} assistantId={assistantId} />*/}
         </>
       )}
