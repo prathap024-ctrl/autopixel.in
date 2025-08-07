@@ -14,32 +14,17 @@ import ReactMarkdown from "react-markdown";
 
 export default function Chatbot() {
   const [showChat, setShowChat] = useState(false);
-  const [messages, setMessages] = useState(() => {
-    const saved = window.localStorage.getItem("chat-history");
-    try {
-      return saved
-        ? JSON.parse(saved)
-        : [
-            {
-              from: "bot",
-              text: "Hi! How can I help you today?",
-              timestamp: new Date(),
-            },
-          ];
-    } catch (e) {
-      return [
-        {
-          from: "bot",
-          text: "Hi! How can I help you today?",
-          timestamp: new Date(),
-        },
-      ];
-    }
-  });
-
+  const [messages, setMessages] = useState([
+    {
+      from: "bot",
+      text: "Hi! How can I help you today?",
+      timestamp: new Date(),
+    },
+  ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [language, setLanguage] = useState("auto");
+
   const messagesEndRef = useRef(null);
   const recognitionRef = useRef(null);
 
@@ -78,7 +63,25 @@ export default function Chatbot() {
   };
 
   useEffect(() => {
-    window.localStorage.setItem("chat-history", JSON.stringify(messages));
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("chat-history");
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed)) {
+            setMessages(parsed);
+          }
+        } catch (e) {
+          console.warn("Failed to parse saved chat history:", e);
+        }
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("chat-history", JSON.stringify(messages));
+    }
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);
 
@@ -108,10 +111,17 @@ export default function Chatbot() {
   };
 
   const clearChat = () => {
-    localStorage.removeItem("chat-history");
-    setMessages([]);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("chat-history");
+    }
+    setMessages([
+      {
+        from: "bot",
+        text: "Hi! How can I help you today?",
+        timestamp: new Date(),
+      },
+    ]);
   };
-
 
   return (
     <>
@@ -147,9 +157,7 @@ export default function Chatbot() {
                   <div
                     key={index}
                     className={`flex flex-col max-w-[75%] px-4 py-2 rounded-xl text-sm ${
-                      msg.from === "bot"
-                        ? "self-start"
-                        : "text-white self-end"
+                      msg.from === "bot" ? "self-start" : "text-white self-end"
                     }`}
                   >
                     <ReactMarkdown>{msg.text}</ReactMarkdown>
