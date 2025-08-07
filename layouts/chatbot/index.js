@@ -15,7 +15,7 @@ import ReactMarkdown from "react-markdown";
 export default function Chatbot() {
   const [showChat, setShowChat] = useState(false);
   const [messages, setMessages] = useState(() => {
-    const saved = localStorage.getItem("chat-history");
+    const saved = window.localStorage.getItem("chat-history");
     try {
       return saved
         ? JSON.parse(saved)
@@ -78,7 +78,7 @@ export default function Chatbot() {
   };
 
   useEffect(() => {
-    localStorage.setItem("chat-history", JSON.stringify(messages));
+    window.localStorage.setItem("chat-history", JSON.stringify(messages));
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);
 
