@@ -132,9 +132,8 @@ export default function FloatingDock() {
   };
 
   const sendEmail = () => {
-    const gmailURL =
-      "https://mail.google.com/mail/?view=cm&fs=1&to=autopixel.in@gmail.com&su=Contact%20Request&body=Hi%2C%20I%20would%20like%20to%20connect.";
-    window.open(gmailURL, "_blank", "noopener,noreferrer");
+    window.location.href =
+      "mailto:autopixel.in@gmail.com?subject=Contact%20Request&body=Hi,%20I%20would%20like%20to%20connect.";
   };
 
   const handleChatbotClick = () => {
