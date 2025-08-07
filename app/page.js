@@ -6,6 +6,7 @@ import VapiWidget from "@/layouts/vapi";
 import useStore from "@/store/zustand";
 import { LoaderTwo } from "@/components/ui/loader";
 import { useEffect } from "react";
+import Chatbot from "@/layouts/chatbot";
 
 export default function Home() {
   const loading = useStore((state) => state.isLoading);
@@ -20,8 +21,8 @@ export default function Home() {
 
     return () => clearTimeout(timer);
   }, [setLoading]);
-  const apiKey = process.env.NEXT_PUBLIC_VAPI_API_KEY;
-  const assistantId = process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
+  //const apiKey = process.env.NEXT_PUBLIC_VAPI_API_KEY;
+  //const assistantId = process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
 
   return (
     <div>
@@ -33,7 +34,8 @@ export default function Home() {
       ) : (
         <>
           <LandingPage />
-          <VapiWidget apiKey={apiKey} assistantId={assistantId} />
+          <Chatbot />
+          {/*<VapiWidget apiKey={apiKey} assistantId={assistantId} />*/}
         </>
       )}
     </div>
