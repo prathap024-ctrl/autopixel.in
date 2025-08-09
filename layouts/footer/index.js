@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const FooterLayout = () => {
   return (
-    <footer className="bg-base-200 text-base-content px-6 py-10 text-white bg-gradient-to-r from-gray-900 to-black">
+    <footer className="bg-base-200 text-base-content px-6 py-10 text-gray-900">
       <div className="max-w-7xl mx-auto grid gap-10 sm:grid-cols-2 md:grid-cols-4">
         {/* Logo and Description */}
         <div className="space-y-4">
@@ -14,7 +14,6 @@ const FooterLayout = () => {
             alt="AutoPixel Logo"
             width={150}
             height={150}
-            className="invert"
           />
           <p className="text-sm leading-relaxed">
             <span className="font-semibold text-lg">AutoPixel</span>

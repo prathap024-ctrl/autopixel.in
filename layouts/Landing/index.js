@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/accordion";
 import ContactForm from "../contact";
 import { useRouter } from "next/navigation";
+import { CardSpot, ExpandableCardSection } from "../Spotlight";
 
 const features = [
   {
@@ -223,7 +224,7 @@ export default function LandingPage() {
                 <span className="text-4xl">Unlock Smarter Growth with AI</span>{" "}
                 <WordRotate words={texts} />
               </h1>
-              <p className="mt-6 text-lg font-medium text-pretty text-white sm:text-xl/8">
+              <p className="mt-6 px-4 text-lg font-medium text-justify text-white sm:text-xl/8">
                 At AutoPixel, we empower businesses with AI automation,
                 intelligent marketing, and high-performance websites. Our
                 AI-driven solutions streamline processes, boost conversions, and
@@ -242,18 +243,16 @@ export default function LandingPage() {
         </div>
       </div>
       {/* What we offer */}
-      <div className="h-[25rem] rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
-        <h2 className="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl mb-4 md:mb-8">
-          Our AI-Powered Mission
-        </h2>
-        <InfiniteMovingCards
-          items={testimonials}
-          direction="left"
-          speed="slow"
-        />
+      <div className="h-[70rem] md:h-[40rem] flex flex-col justify-center items-center">
+        <div className="mb-12">
+          <h2 className="text-3xl font-semibold tracking-tight text-gray-900">
+            What we offer
+          </h2>
+        </div>
+        <ExpandableCardSection />
       </div>
       {/* Why choose us */}
-      <div className="bg-gradient-to-r from-gray-900 to-black py-24 sm:py-32">
+      <div className="bg-gradient-to-r from-gray-900 to-black py-24 sm:py-32 text-justify">
         <div className="overflow-hidden mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto grid max-w-3xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
             <div className="lg:pt-4 lg:pr-8">
@@ -261,7 +260,7 @@ export default function LandingPage() {
                 <h2 className="text-base/7 font-semibold text-white">
                   Our AI-Driven Approach
                 </h2>
-                <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">
+                <p className="mt-2 text-3xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">
                   Intelligent Automation, Made Simple
                 </p>
                 <p className="mt-6 text-lg/8 text-white">
@@ -298,7 +297,7 @@ export default function LandingPage() {
       </div>
       {/*What we offer*/}
       <div className="my-4 md:my-24 flex flex-col items-center">
-        <h2 className="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl mb-4 md:mb-24">
+        <h2 className="text-3xl text-center font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl mb-4 md:mb-24">
           AI Solutions to Fuel Your Business Growth
         </h2>
         <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem] p-6 md:p-0">
@@ -355,7 +354,7 @@ export default function LandingPage() {
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
-            <h2 className="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">
+            <h2 className="text-3xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">
               AI Insights from Our Blog
             </h2>
             <p className="mt-2 text-lg/8 text-gray-600">
@@ -417,7 +416,7 @@ export default function LandingPage() {
 
       {/* FAQ section */}
       <div className="bg-gradient-to-r from-gray-900 to-black h-fit py-24 flex flex-col justify-center items-center">
-        <h2 className="text-4xl font-semibold tracking-tight text-white mb-12">
+        <h2 className="text-3xl font-semibold tracking-tight text-white mb-12">
           AI Automation FAQs
         </h2>
 
