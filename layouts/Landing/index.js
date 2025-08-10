@@ -24,6 +24,8 @@ import {
 import ContactForm from "../contact";
 import { useRouter } from "next/navigation";
 import { CardSpot, ExpandableCardSection } from "../Spotlight";
+import { AnimatedBeamMultipleOutput, AnimatedBeamSection } from "../automation";
+import { FlipWords } from "@/components/ui/flip-words";
 
 const features = [
   {
@@ -221,8 +223,10 @@ export default function LandingPage() {
           <div className="mx-auto max-w-2xl py-28 sm:py-46 lg:py-40">
             <div className="text-center">
               <h1 className="text-5xl font-semibold tracking-normal text-balance text-white sm:text-7xl">
-                <span className="text-4xl">Unlock Smarter Growth with AI</span>{" "}
-                <WordRotate words={texts} />
+                <span className="text-4xl">Unlock Smarter Growth with AI</span>
+                <br />
+
+                <FlipWords words={texts} />
               </h1>
               <p className="mt-6 px-4 text-lg font-medium text-justify text-white sm:text-xl/8">
                 At AutoPixel, we empower businesses with AI automation,
@@ -277,7 +281,7 @@ export default function LandingPage() {
                           className="absolute top-1 left-1 size-5 text-white"
                         />
                         {feature.name}
-                      </dt>{" "}
+                      </dt><br />
                       <dd className="inline">{feature.description}</dd>
                     </div>
                   ))}
@@ -297,10 +301,10 @@ export default function LandingPage() {
       </div>
       {/*What we offer*/}
       <div className="my-4 md:my-24 flex flex-col items-center">
-        <h2 className="text-3xl text-center font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl mb-4 md:mb-24">
+        <h2 className="text-3xl text-center font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl mb-4 md:mb-12">
           AI Solutions to Fuel Your Business Growth
         </h2>
-        <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem] p-6 md:p-0">
+        {/*<BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem] p-6 md:p-0">
           {items.map((item, i) => (
             <BentoGridItem
               key={i}
@@ -311,12 +315,15 @@ export default function LandingPage() {
               icon={item.icon}
             />
           ))}
-        </BentoGrid>
+        </BentoGrid>*/}
+        <div className="w-full">
+          <AnimatedBeamSection />
+        </div>
       </div>
       {/* Call to action */}
-      <div className="bg-gradient-to-r from-gray-900 to-black">
-        <div className="mx-auto max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8">
-          <div className="relative isolate overflow-hidden bg-white px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
+      <div className="bg-gradient-to-r from-gray-900 to-black p-6">
+        <div className="mx-auto max-w-7xl sm:px-6 sm:py-32 lg:px-8">
+          <div className="relative isolate overflow-hidden rounded-3xl bg-white px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
             <div className="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
               <h2 className="text-3xl font-semibold tracking-tight text-balance text-gray-900 sm:text-4xl">
                 Supercharge Your Business with AI Automation
@@ -332,7 +339,7 @@ export default function LandingPage() {
                   className="text-sm/6 font-semibold text-gray-900 hover:text-gray-100"
                 >
                   <InteractiveHoverButton>
-                    Schedule Your Free AI Strategy Session
+                    Discuss Now
                   </InteractiveHoverButton>
                 </Link>
               </div>
@@ -415,7 +422,7 @@ export default function LandingPage() {
       </div>
 
       {/* FAQ section */}
-      <div className="bg-gradient-to-r from-gray-900 to-black h-fit py-24 flex flex-col justify-center items-center">
+      <div className="bg-gradient-to-r from-gray-900 to-black h-fit py-24 px-4 flex flex-col justify-center items-center">
         <h2 className="text-3xl font-semibold tracking-tight text-white mb-12">
           AI Automation FAQs
         </h2>

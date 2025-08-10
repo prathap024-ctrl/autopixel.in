@@ -113,23 +113,21 @@ export function ExpandableCardSection() {
           </div>
         ) : null}
       </AnimatePresence>
-      <ul className="grid md:grid-cols-2 grid-cols-1 mx-auto max-w-5xl w-full gap-4 md:gap-8">
+      <ul className="grid md:grid-cols-2 grid-cols-1 mx-auto max-w-5xl w-full px-4 md:px-0 gap-4 md:gap-8">
         {cards.map((card, index) => (
           <motion.div
             layoutId={`card-${card.title}-${id}`}
             key={`card-${card.title}-${id}`}
             onClick={() => setActive(card)}
-            className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
+            className="p-4 flex flex-col md:flex-row border justify-between items-center hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
           >
-            <motion.div
-              layoutId={`image-${card.title}-${id}`}
-            >
+            <motion.div layoutId={`image-${card.title}-${id}`}>
               {/* Render icon if src is React element, else render Image */}
               {React.isValidElement(card.src) ? (
                 React.cloneElement(card.src, {
                   size: 64,
                   className:
-                    "h-10 w-10 md:h-14 md:w-14 rounded-lg text-gray-700 dark:text-gray-300",
+                    "h-10 w-10 md:h-14 md:w-14 rounded-lg text-gray-900 dark:text-gray-300",
                 })
               ) : (
                 <Image
