@@ -14,7 +14,6 @@ import {
   IconTableColumn,
 } from "@tabler/icons-react";
 import Image from "next/image";
-import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import {
   Accordion,
   AccordionContent,
@@ -23,8 +22,8 @@ import {
 } from "@/components/ui/accordion";
 import ContactForm from "../contact";
 import { useRouter } from "next/navigation";
-import { CardSpot, ExpandableCardSection } from "../Spotlight";
-import { AnimatedBeamMultipleOutput, AnimatedBeamSection } from "../automation";
+import { ExpandableCardSection } from "../Spotlight";
+import { AnimatedBeamSection } from "../automation";
 import { FlipWords } from "@/components/ui/flip-words";
 
 const features = [
@@ -123,42 +122,41 @@ const items = [
   },
 ];
 
-const testimonials = [
+const FAQs = [
   {
-    quote:
-      "Our AI-powered chat and voice agents work 24/7 to enhance customer support, qualify leads, and boost sales.",
-    name: "🤖 Non-Stop AI Agents",
-    title: "",
+    question: "What AI automation services does AutoPixel provide?",
+    answer:
+      "We specialize in AI automation, intelligent digital marketing, AI-driven ad campaigns, smart sales funnels, custom web development, and seamless CRM integrations — all designed to optimize and grow your business.",
   },
   {
-    quote:
-      "We deliver measurable results with AI-driven marketing strategies that prioritize conversions over metrics.",
-    name: "📊 AI Marketing That Works",
-    title: "",
+    question: "Can you work with startups and established businesses alike?",
+    answer:
+      "Yes, we partner with businesses of all sizes — from startups to global enterprises. Our AI solutions are customized to meet your unique goals and scale with your growth.",
   },
   {
-    quote:
-      "Our AI-optimized websites are fast, user-friendly, and designed to turn visitors into loyal customers.",
-    name: "🌐 AI-Powered Web Solutions",
-    title: "",
+    question: "How quickly can you launch an AI automation project?",
+    answer:
+      "Depending on project complexity, most AI-driven projects are launched within 2–4 weeks, ensuring speed, quality, and precision in every deliverable.",
   },
   {
-    quote:
-      "Streamline operations and save time with AI automation workflows tailored to your business processes.",
-    name: "🔄 AI Automation for Efficiency",
-    title: "",
+    question: "What is the cost of your AI automation services?",
+    answer:
+      "Costs depend on your project’s scope and objectives. After a free consultation, we’ll provide a tailored quote to match your budget and business needs.",
   },
   {
-    quote:
-      "Our AI-driven sales funnels guide prospects seamlessly from awareness to purchase, maximizing conversions.",
-    name: "🚀 AI Funnels That Convert",
-    title: "",
+    question: "Can I hire you for a single AI service?",
+    answer:
+      "Yes, you can engage us for individual services like AI funnels, ad campaigns, or automation — or opt for a scomprehensive AI-powered solution for maximum impact.",
   },
   {
-    quote:
-      "We combine AI insights with strategic expertise to deliver smart, scalable solutions for business growth.",
-    name: "🧠 AI-Driven Business Strategies",
-    title: "",
+    question: "Do you offer support after launching an AI project?",
+    answer:
+      "Absolutely. We provide ongoing support, including AI system maintenance, performance monitoring, and continuous optimization to ensure lasting success.",
+  },
+  {
+    question: "Can I view your AI automation portfolio?",
+    answer:
+      "Definitely! Schedule a free discovery call, and we’ll share relevant case studies and examples of our AI-driven projects tailored to your industry.",
   },
 ];
 
@@ -281,7 +279,8 @@ export default function LandingPage() {
                           className="absolute top-1 left-1 size-5 text-white"
                         />
                         {feature.name}
-                      </dt><br />
+                      </dt>
+                      <br />
                       <dd className="inline">{feature.description}</dd>
                     </div>
                   ))}
@@ -323,7 +322,7 @@ export default function LandingPage() {
       {/* Call to action */}
       <div className="bg-gradient-to-r from-gray-900 to-black p-6">
         <div className="mx-auto max-w-7xl sm:px-6 sm:py-32 lg:px-8">
-          <div className="relative isolate overflow-hidden rounded-3xl bg-white px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
+          <div className="relative isolate overflow-hidden rounded-3xl bg-white px-6 py-12 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
             <div className="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
               <h2 className="text-3xl font-semibold tracking-tight text-balance text-gray-900 sm:text-4xl">
                 Supercharge Your Business with AI Automation
@@ -338,9 +337,7 @@ export default function LandingPage() {
                   href="/"
                   className="text-sm/6 font-semibold text-gray-900 hover:text-gray-100"
                 >
-                  <InteractiveHoverButton>
-                    Discuss Now
-                  </InteractiveHoverButton>
+                  <InteractiveHoverButton>Discuss Now</InteractiveHoverButton>
                 </Link>
               </div>
             </div>
@@ -427,7 +424,7 @@ export default function LandingPage() {
           AI Automation FAQs
         </h2>
 
-        <div className="w-full md:max-w-3/4 bg-white p-4 md:p-12 text-gray-900 rounded-2xl">
+        <div className="w-full md:max-w-3/4 bg-white p-4 md:p-12 text-gray-900 rounded-3xl">
           <Accordion
             type="single"
             collapsible
