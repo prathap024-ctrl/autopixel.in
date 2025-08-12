@@ -209,6 +209,7 @@ export default function LandingPage() {
   const handleClick = () => router.push("/contact");
   return (
     <>
+      <Image src="/bg.gif" alt="bg" width={1920} height={1080} className="inset-0 h-full w-full object-cover fixed opacity-5 -z-50" />
       <div className="bg-gradient-to-r from-gray-900 to-black w-full h-full top-0 left-0">
         <div className="relative isolate">
           <div className="mx-auto max-w-2xl py-28 sm:py-46 lg:py-40">
@@ -348,7 +349,7 @@ export default function LandingPage() {
       </div>
 
       {/* Blog section */}
-      <div className="bg-white py-24 sm:py-32">
+      <div className="bg-transparent py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
             <h2 className="text-3xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">

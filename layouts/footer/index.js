@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const FooterLayout = () => {
   return (
-    <footer className="bg-base-200 text-base-content px-6 py-10 text-gray-900">
+    <footer className="bg-base-200 text-base-content px-6 py-10 bg-white text-gray-900">
       <div className="max-w-7xl mx-auto grid gap-10 sm:grid-cols-2 md:grid-cols-4">
         {/* Logo and Description */}
         <div className="space-y-4">
@@ -106,8 +106,17 @@ const FooterLayout = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="mt-10 text-center text-sm text-gray-300">
+      <div className="mt-10 text-center text-sm text-gray-800">
         © {new Date().getFullYear()} AutoPixel. All rights reserved.
+      </div>
+      <div>
+        <Image
+          src="/main_color_logo.png"
+          alt="AutoPixel Logo"
+          width={1920}
+          height={1080}
+          className="w-full h-full object-cover opacity-25"
+        />
       </div>
     </footer>
   );
