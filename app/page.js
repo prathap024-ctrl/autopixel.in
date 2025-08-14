@@ -1,11 +1,11 @@
 "use client";
 
-import LandingPage from "@/layouts/Landing";
 import { ScrollProgress } from "@/components/magicui/scroll-progress";
 import useStore from "@/store/zustand";
 import { LoaderTwo } from "@/components/ui/loader";
 import { useEffect } from "react";
 import FloatingDock from "@/layouts/mobilemenu";
+import LandingPage from "@/components/LandingPage";
 
 export default function Home() {
   const loading = useStore((state) => state.isLoading);

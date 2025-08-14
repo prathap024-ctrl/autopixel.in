@@ -21,17 +21,10 @@ export function ExpandableCardSection() {
 
   useEffect(() => {
     function onKeyDown(event) {
-      if (event.key === "Escape") {
-        setActive(false);
-      }
+      if (event.key === "Escape") setActive(null);
     }
 
-    if (active && typeof active === "object") {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
+    document.body.style.overflow = active ? "hidden" : "auto";
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [active]);
@@ -39,126 +32,98 @@ export function ExpandableCardSection() {
   useOutsideClick(ref, () => setActive(null));
 
   return (
-    <>
+    <div className="max-w-7xl mx-auto px-4 py-12 md:py-24">
+      {/* Overlay */}
       <AnimatePresence>
-        {active && typeof active === "object" && (
+        {active && (
           <motion.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            animate={{ opacity: 0.5 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/20 h-full w-full z-10"
+            className="fixed inset-0 bg-black z-20"
           />
         )}
       </AnimatePresence>
+
+      {/* Expanded Card */}
       <AnimatePresence>
-        {active && typeof active === "object" ? (
-          <div className="fixed inset-0  grid place-items-center z-[100]">
-            <motion.button
-              key={`button-${active.title}-${id}`}
-              layout
-              initial={{
-                opacity: 0,
-              }}
-              animate={{
-                opacity: 1,
-              }}
-              exit={{
-                opacity: 0,
-                transition: {
-                  duration: 0.05,
-                },
-              }}
-              className="flex absolute top-2 right-2 lg:hidden items-center justify-center bg-white rounded-full h-10 w-10"
-              onClick={() => setActive(null)}
-            >
-              <CloseIcon />
-            </motion.button>
+        {active && (
+          <motion.div className="fixed inset-0 z-30 grid place-items-center px-4">
             <motion.div
-              layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[500px] h-full md:h-fit md:max-h-[100%]  flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
+              layoutId={`card-${active.title}-${id}`}
+              className="bg-white dark:bg-neutral-900 rounded-3xl shadow-2xl overflow-hidden max-w-lg w-full p-6 md:p-8"
             >
-              <div>
-                <div className="flex justify-between items-start p-4 md:mt-0 mt-4">
-                  <div className="">
-                    <motion.h3
-                      layoutId={`title-${active.title}-${id}`}
-                      className="font-bold text-neutral-700 dark:text-neutral-200"
-                    >
-                      {active.title}
-                    </motion.h3>
-                    <motion.p
-                      layoutId={`description-${active.description}-${id}`}
-                      className="text-neutral-600 dark:text-neutral-400 text-justify"
-                    >
-                      {active.description}
-                    </motion.p>
-                  </div>
-                </div>
-                <div className="pt-4 relative px-4">
-                  <motion.div
-                    layout
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="text-neutral-600 text-justify text-xs md:text-sm lg:text-base h-40 md:h-fit pb-4 flex flex-col items-start gap-4 dark:text-neutral-400 "
-                  >
-                    {typeof active.content === "function"
-                      ? active.content()
-                      : active.content}
-                  </motion.div>
-                </div>
+              <div className="flex justify-between items-start mb-4">
+                <motion.h3
+                  layoutId={`title-${active.title}-${id}`}
+                  className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white"
+                >
+                  {active.title}
+                </motion.h3>
+                <button
+                  onClick={() => setActive(null)}
+                  className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+                >
+                  ✕
+                </button>
               </div>
+              <motion.p
+                layoutId={`description-${active.description}-${id}`}
+                className="text-gray-700 dark:text-gray-300 text-justify mb-4"
+              >
+                {active.description}
+              </motion.p>
+              <motion.div className="text-gray-600 dark:text-gray-400 space-y-4 text-sm md:text-base overflow-y-auto max-h-80">
+                {typeof active.content === "function"
+                  ? active.content()
+                  : active.content}
+              </motion.div>
             </motion.div>
-          </div>
-        ) : null}
+          </motion.div>
+        )}
       </AnimatePresence>
-      <ul className="grid md:grid-cols-2 grid-cols-1 mx-auto max-w-5xl w-full px-4 md:px-0 gap-4 md:gap-8">
+
+      {/* Cards Grid */}
+      <ul className="grid md:grid-cols-2 gap-6 md:gap-8">
         {cards.map((card, index) => (
-          <motion.div
+          <motion.li
+            key={card.title}
             layoutId={`card-${card.title}-${id}`}
-            key={`card-${card.title}-${id}`}
             onClick={() => setActive(card)}
-            className="p-4 flex flex-col md:flex-row border justify-between items-center hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
+            className="flex flex-col md:flex-row items-center md:items-start gap-4 p-6 bg-gradient-to-r from-white to-gray-50 dark:from-neutral-800 dark:to-neutral-900 rounded-2xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
           >
-            <motion.div layoutId={`image-${card.title}-${id}`}>
-              {/* Render icon if src is React element, else render Image */}
+            <div className="flex-shrink-0">
               {React.isValidElement(card.src) ? (
                 React.cloneElement(card.src, {
-                  size: 64,
-                  className:
-                    "h-10 w-10 md:h-14 md:w-14 rounded-lg text-gray-900 dark:text-gray-300",
+                  size: 48,
+                  className: "text-gray-800 dark:text-gray-200",
                 })
               ) : (
                 <Image
-                  width={100}
-                  height={100}
                   src={card.src}
                   alt={card.title}
-                  className="h-40 w-40 md:h-14 md:w-14 rounded-lg object-cover object-top"
+                  width={64}
+                  height={64}
+                  className="rounded-lg object-cover"
                 />
               )}
-            </motion.div>
-            <div className="flex gap-4">
-              <div>
-                <motion.h3
-                  layoutId={`title-${card.title}-${id}`}
-                  className="font-medium text-neutral-800 dark:text-neutral-200 text-justify md:text-left"
-                >
-                  {card.title}
-                </motion.h3>
-              </div>
             </div>
-            <motion.button
-              layoutId={`button-${card.title}-${id}`}
-              className="px-4 py-2 w-full md:w-fit text-sm rounded-full font-bold cursor-pointer hover:bg-gray-900 hover:text-white text-black mt-4 md:mt-0"
-            >
+            <div className="flex-1 flex flex-col justify-between">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                {card.title}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base line-clamp-3 mt-1">
+                {card.description}
+              </p>
+            </div>
+            <button className="mt-4 md:mt-0 md:ml-4 px-4 py-2 bg-blue-400 hover:bg-blue-500 text-white rounded-full font-semibold text-sm transition">
               {card.ctaText}
-            </motion.button>
-          </motion.div>
+            </button>
+          </motion.li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
 

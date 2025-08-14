@@ -1,162 +1,131 @@
+"use client";
+
+import React, { useState } from "react";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
-import React from "react";
 
 const ContactForm = () => {
+  const [message, setMessage] = useState("");
   return (
-    <div>
-      {/* contact section */}
-      <div className="bg-white isolate px-6 py-24 sm:py-32 lg:px-8">
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-        ></div>
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-4xl font-semibold tracking-tight text-balance text-gray-900 sm:text-5xl">
-            Contact sales
-          </h2>
-          <p className="mt-2 text-lg/8 text-gray-600">
-            Ready to scale your business? Reach out and let&apos;s explore how we can
-            help.
-          </p>
-        </div>
-        <form
-          action="#"
-          method="POST"
-          className="mx-auto mt-16 max-w-xl sm:mt-20"
-        >
-          <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-            <div>
-              <label
-                htmlFor="first-name"
-                className="block text-sm/6 font-semibold text-gray-900"
-              >
-                First name
-              </label>
-              <div className="mt-2.5">
-                <input
-                  id="first-name"
-                  name="first-name"
-                  type="text"
-                  autoComplete="given-name"
-                  className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400"
-                />
-              </div>
+    <div className="bg-white px-4 py-12 sm:py-20 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto">
+        {/* Heading */}
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+          Start Your Project
+        </h2>
+
+        {/* Form */}
+        <form className="mt-8 space-y-6">
+          {/* Row 1 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="flex flex-col gap-2">
+              <Label>Full Name *</Label>
+              <Input type="text" placeholder="John Smith" />
             </div>
-            <div>
-              <label
-                htmlFor="last-name"
-                className="block text-sm/6 font-semibold text-gray-900"
-              >
-                Last name
-              </label>
-              <div className="mt-2.5">
-                <input
-                  id="last-name"
-                  name="last-name"
-                  type="text"
-                  autoComplete="family-name"
-                  className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400"
-                />
-              </div>
-            </div>
-            <div className="sm:col-span-2">
-              <label
-                htmlFor="company"
-                className="block text-sm/6 font-semibold text-gray-900"
-              >
-                Company
-              </label>
-              <div className="mt-2.5">
-                <input
-                  id="company"
-                  name="company"
-                  type="text"
-                  autoComplete="organization"
-                  className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400"
-                />
-              </div>
-            </div>
-            <div className="sm:col-span-2">
-              <label
-                htmlFor="email"
-                className="block text-sm/6 font-semibold text-gray-900"
-              >
-                Email
-              </label>
-              <div className="mt-2.5">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400"
-                />
-              </div>
-            </div>
-            <div className="sm:col-span-2">
-              <label
-                htmlFor="email"
-                className="block text-sm/6 font-semibold text-gray-900"
-              >
-                Phone
-              </label>
-              <div className="mt-2.5">
-                <input
-                  id="phone"
-                  name="phone"
-                  type="number"
-                  autoComplete="phone"
-                  className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400"
-                />
-              </div>
-            </div>
-            <div className="sm:col-span-2">
-              <label
-                htmlFor="message"
-                className="block text-sm/6 font-semibold text-gray-900"
-              >
-                Message
-              </label>
-              <div className="mt-2.5">
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={4}
-                  className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400"
-                  defaultValue={""}
-                />
-              </div>
-            </div>
-            <div className="flex gap-x-4 sm:col-span-2">
-              <div className="flex h-6 items-center">
-                <div className="group relative inline-flex w-8 shrink-0 rounded-full bg-gray-200 p-px transition-colors duration-200 ease-in-out has-checked:bg-black has-focus-visible:outline-2">
-                  <span className="size-4 rounded-full bg-white shadow-xs ring-1 ring-gray-900/5 transition-transform duration-200 ease-in-out group-has-checked:translate-x-3.5" />
-                  <input
-                    id="agree-to-policies"
-                    name="agree-to-policies"
-                    type="checkbox"
-                    aria-label="Agree to policies"
-                    className="absolute inset-0 appearance-none focus:outline-hidden"
-                  />
-                </div>
-              </div>
-              <label
-                htmlFor="agree-to-policies"
-                className="text-sm/6 text-gray-600"
-              >
-                By selecting this, you agree to our{" "}
-                <a
-                  href="#"
-                  className="font-semibold whitespace-nowrap text-gray-900"
-                >
-                  privacy policy
-                </a>
-                .
-              </label>
+            <div className="flex flex-col gap-2">
+              <Label>Email Address *</Label>
+              <Input type="email" placeholder="john@company.com" />
             </div>
           </div>
-          <div className="mt-10">
-            <InteractiveHoverButton>Let&apos;s talk</InteractiveHoverButton>
+
+          {/* Row 2 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="flex flex-col gap-2">
+              <Label>Company Name</Label>
+              <Input type="text" placeholder="Your Company" />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label>Phone Number</Label>
+              <Input type="phone" placeholder="+91 9876543210" />
+            </div>
+          </div>
+
+          {/* Row 3 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="flex flex-col gap-2">
+              <Label>Service Interest *</Label>
+              <Select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a service" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="voice">AI Voice Agents</SelectItem>
+                  <SelectItem value="outreach">
+                    Multi-Channel Outreach
+                  </SelectItem>
+                  <SelectItem value="funnels">
+                    Funnel & Landing Page Builds
+                  </SelectItem>
+                  <SelectItem value="strategy">Growth Strategy</SelectItem>
+                  <SelectItem value="automation">Automation Systems</SelectItem>
+                  <SelectItem value="discuss">Discuss</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label>Monthly Budget Range</Label>
+              <Select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select budget range" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="10-25k">₹10,000 – ₹25,000</SelectItem>
+                  <SelectItem value="25-50k">₹25,000 – ₹50,000</SelectItem>
+                  <SelectItem value="50k-1l">₹50,000 – ₹1L</SelectItem>
+                  <SelectItem value="1l+">₹1L+</SelectItem>
+                  <SelectItem value="discuss">Discuss</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {/* Row 4 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="flex flex-col gap-2">
+              <Label>Project Timeline</Label>
+              <Select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select timeline" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1-2w">1-2 weeks</SelectItem>
+                  <SelectItem value="1m">1 month</SelectItem>
+                  <SelectItem value="3m+">3+ months</SelectItem>
+                  <SelectItem value="discuss">Discuss</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {/* Textarea */}
+          <div className="flex flex-col gap-2">
+            <Label>Project Details *</Label>
+            <Textarea
+              placeholder="Tell us about your current challenges, what you’d like to automate, and your goals..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              maxLength={500}
+              rows={4}
+            />
+            <div className="text-right text-xs text-gray-500">
+              {message.length}/500 characters
+            </div>
+          </div>
+
+          {/* Button */}
+          <div>
+            <InteractiveHoverButton type="submit">
+              Send Message
+            </InteractiveHoverButton>
           </div>
         </form>
       </div>
