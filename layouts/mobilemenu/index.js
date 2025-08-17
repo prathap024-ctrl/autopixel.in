@@ -182,8 +182,8 @@ export default function FloatingDock() {
       </Popover>
 
       {showChat && (
-        <div className="fixed bottom-0 md:bottom-4 right-0 md:right-4 w-full max-w-md z-50 animate-fadeInUp">
-          <div className="flex flex-col h-screen md:h-[600px] bg-blue-500 text-white p-4 md:rounded-2xl shadow-xl">
+        <div className="fixed bottom-5 md:bottom-4 right-0 md:right-4 w-full max-w-md z-50 animate-fadeInUp">
+          <div className="flex flex-col h-[600px] bg-blue-500 text-white p-4 rounded-2xl shadow-xl">
             <Card className="flex flex-col flex-grow overflow-hidden rounded-2xl bg-transparent text-white">
               <div className="flex justify-between items-center px-4">
                 <h2 className="text-lg font-semibold">AI Assistant</h2>
@@ -199,7 +199,7 @@ export default function FloatingDock() {
                 {messages.map((msg, index) => (
                   <div
                     key={index}
-                    className={`flex flex-col max-w-[100%] px-4 py-2 rounded-xl text-pretty text-sm ${
+                    className={`flex flex-col max-w-[100%] py-2 rounded-xl text-pretty text-sm ${
                       msg.from === "bot" ? "self-start" : "text-white self-end"
                     }`}
                   >
@@ -210,7 +210,7 @@ export default function FloatingDock() {
                   </div>
                 ))}
                 {isTyping && (
-                  <div className="px-4 py-2 rounded-xl text-sm text-white self-start max-w-[75%]">
+                  <div className="py-2 rounded-xl text-sm text-white self-start max-w-[75%]">
                     <span className="animate-pulse">Typing...</span>
                   </div>
                 )}
