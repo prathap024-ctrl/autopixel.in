@@ -60,10 +60,10 @@ export default function AboutPage() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Heading + Intro */}
         <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-7xl">
+          <h2 className="text-5xl font-bold tracking-tight text-white sm:text-7xl">
             Work with us
           </h2>
-          <p className="mt-8 text-lg text-gray-600 sm:text-xl leading-relaxed">
+          <p className="mt-8 text-lg text-white sm:text-xl leading-relaxed">
             AutoPixel was founded with a clear goal: to help startups and small
             businesses grow through smart automation and effective digital
             outreach. While we&apos;re early in our journey, our focus is
@@ -98,8 +98,8 @@ export default function AboutPage() {
           {/* Values Section */}
           <div>
             <div className="text-center my-24 sm:my-24">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Values</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              <h2 className="text-3xl font-bold text-white mb-4">Our Values</h2>
+              <p className="text-lg text-white max-w-2xl mx-auto">
                 The principles that guide everything we do and every decision we
                 make.
               </p>
