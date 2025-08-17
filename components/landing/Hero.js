@@ -8,7 +8,7 @@ export default function Hero() {
   const handleClick = () => router.push("/contact");
 
   return (
-    <section className="relative w-full h-screen border-t-2 border-b-2 bg-blue-400 flex items-center">
+    <section className="relative w-full h-screen border-t-2 border-b-2 bg-transparent flex items-center">
       <div className="relative z-10 mx-auto max-w-3xl px-4 text-center">
         {/* Heading */}
         <h1 className="text-gray-900 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">
