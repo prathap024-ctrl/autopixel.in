@@ -3,7 +3,7 @@ import React from "react";
 
 const WhatWeOffer = () => {
   return (
-    <section className="py-16 md:py-24 bg-[#F9FAFB] dark:bg-gray-900">
+    <section className="py-16 md:py-24 border-b-2 bg-[#F9FAFB] dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 flex flex-col items-center">
         {/* Section Header */}
         <div className="mb-12 text-center">

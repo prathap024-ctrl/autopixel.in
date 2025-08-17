@@ -16,7 +16,7 @@ import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-b
 const ContactForm = () => {
   const [message, setMessage] = useState("");
   return (
-    <div className="bg-white rounded-2xl px-4 py-12 sm:py-20 sm:px-6 lg:px-8">
+    <div className="bg-white border-t-2 border-b-2 px-4 py-12 sm:py-20 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Heading */}
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">

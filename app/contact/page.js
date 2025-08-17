@@ -6,12 +6,12 @@ const Page = () => {
   return (
     <div className="">
       {/* Contact Form Section */}
-      <section className="isolate px-4 sm:px-6 py-16 sm:py-24 lg:px-8">
+      <div>
         <ContactForm />
-      </section>
+      </div>
 
       {/* Contact Info Section */}
-      <section className="px-4 sm:px-6 lg:px-8 pb-16">
+      <section className="bg-white border-b-2 px-4 sm:px-6 lg:px-8 py-16">
         <div className="max-w-5xl w-full mx-auto p-6 sm:p-10 border-2 border-gray-900 text-gray-900 bg-blue-100 rounded-2xl">
           {/* Heading */}
           <span className="inline-block px-2 py-1 text-xs border border-gray-600 rounded-full text-gray-600">

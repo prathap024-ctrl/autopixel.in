@@ -66,7 +66,7 @@ export default function ServicesPage() {
   ];
 
   return (
-    <div className="bg-blue-100 text-gray-900 px-6 py-24 sm:py-32 lg:px-16">
+    <div className="bg-blue-100 text-gray-900 border-t-2 border-b-2 px-6 py-24 sm:py-32 lg:px-16">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-20">

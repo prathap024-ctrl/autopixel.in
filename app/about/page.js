@@ -46,7 +46,7 @@ const values = [
 
 export default function AboutPage() {
   return (
-    <section className="relative isolate overflow-hidden bg-blue-100 py-24 sm:py-32">
+    <section className="relative isolate overflow-hidden bg-blue-100 border-b-2 border-t-2 py-24 sm:py-32">
       {/* Decorative background elements */}
       <div
         aria-hidden="true"

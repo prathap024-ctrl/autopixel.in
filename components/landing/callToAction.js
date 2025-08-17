@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const CallToAction = () => {
   return (
-    <section className="bg-blue-100 px-4 py-12 sm:px-6 sm:py-20 lg:px-8">
+    <section className="bg-blue-100 border-b-2 px-4 py-12 sm:px-6 sm:py-20 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="relative isolate overflow-hidden rounded-3xl bg-white border-2 border-gray-900 px-6 py-12 shadow-2xl sm:px-12 md:py-16 lg:grid lg:grid-cols-2 lg:gap-x-20 lg:px-16">
           {/* Text Section */}

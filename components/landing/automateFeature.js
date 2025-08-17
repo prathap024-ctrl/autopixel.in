@@ -2,7 +2,7 @@ import { AnimatedBeamSection } from "@/layouts/automation";
 
 export default function BentoFeatures() {
   return (
-    <section className="my-12 md:my-24 flex flex-col items-center px-4 dark:bg-gray-900">
+    <section className="py-12 md:py-24 flex flex-col items-center px-4 border-b-2">
       {/* Section Heading */}
       <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight text-center text-pretty text-gray-900 dark:text-white mb-4 md:mb-6">
         AI Solutions to Fuel Your Business Growth

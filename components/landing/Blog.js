@@ -4,7 +4,7 @@ import React from "react";
 
 const Blog = () => {
   return (
-    <section className="bg-transparent py-16 sm:py-24">
+    <section className="bg-transparent py-16 sm:py-24 border-b-2">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <div className="max-w-2xl mx-auto text-center lg:text-left lg:mx-0">

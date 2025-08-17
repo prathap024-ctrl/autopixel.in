@@ -27,7 +27,7 @@ export default function Home() {
     <div>
       <ScrollProgress />
       {loading ? (
-        <div className="w-full h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 to-black">
+        <div className="w-full h-screen flex items-center justify-center bg-blue-400 backdrop-blur-2xl">
           <LoaderTwo />
         </div>
       ) : (
