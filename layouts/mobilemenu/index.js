@@ -128,10 +128,9 @@ export default function FloatingDock() {
     const body = encodeURIComponent("Hi, I would like to connect.");
 
     // Check if mobile device
-    const isMobile =
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      );
+    const isMobile = /Android|webOS|iPhone|iPad|iPod/i.test(
+      navigator.userAgent
+    );
 
     if (isMobile) {
       window.location.href = `mailto:autopixel.in@gmail.com?subject=${subject}&body=${body}`;
