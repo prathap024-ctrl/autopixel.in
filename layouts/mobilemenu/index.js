@@ -23,20 +23,6 @@ import {
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
-const supportedLanguages = [
-  { code: "auto", label: "Auto Detect" },
-  { code: "hi-IN", label: "Hindi" },
-  { code: "ta-IN", label: "Tamil" },
-  { code: "te-IN", label: "Telugu" },
-  { code: "kn-IN", label: "Kannada" },
-  { code: "ml-IN", label: "Malayalam" },
-  { code: "mr-IN", label: "Marathi" },
-  { code: "bn-IN", label: "Bengali" },
-  { code: "gu-IN", label: "Gujarati" },
-  { code: "pa-IN", label: "Punjabi" },
-  { code: "ur-IN", label: "Urdu" },
-];
-
 export default function FloatingDock() {
   const [showChat, setShowChat] = useState(false);
   const [messages, setMessages] = useState([
@@ -76,40 +62,46 @@ export default function FloatingDock() {
       minute: "2-digit",
     });
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
     setMessages((prev) => [
       ...prev,
       { from: "user", text: input, timestamp: new Date() },
     ]);
     setIsTyping(true);
+    setInput("");
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: input }),
+      });
 
-    setTimeout(() => {
+      const data = await response.json();
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          {
+            from: "bot",
+            text: data.reply,
+            timestamp: new Date(),
+          },
+        ]);
+        setIsTyping(false);
+      }, 1000);
+    } catch (error) {
+      console.error("Error sending message:", error);
       setMessages((prev) => [
         ...prev,
-        { from: "bot", text: `**You said:** ${input}`, timestamp: new Date() },
+        {
+          from: "bot",
+          text: "Sorry, something went wrong.",
+          timestamp: new Date(),
+        },
       ]);
-      setIsTyping(false);
-    }, 1000);
-
-    setInput("");
-  };
-
-  const handleVoice = () => {
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) return alert("Speech recognition not supported");
-
-    const recognition = new SpeechRecognition();
-    recognitionRef.current = recognition;
-    recognition.lang = language === "auto" ? undefined : language;
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-    recognition.onresult = (event) => {
-      setInput(event.results[0][0].transcript);
-    };
-    recognition.onerror = (err) => alert("Voice error: " + err.error);
-    recognition.start();
+    }
   };
 
   const clearChat = () => {
@@ -190,13 +182,13 @@ export default function FloatingDock() {
       </Popover>
 
       {showChat && (
-        <div className="fixed bottom-4 right-4 w-full max-w-md z-50 animate-fadeInUp">
-          <div className="flex flex-col h-[600px] bg-gradient-to-b from-gray-900 to-black text-white p-4 rounded-2xl shadow-xl">
+        <div className="fixed bottom-0 md:bottom-4 right-0 md:right-4 w-full max-w-md z-50 animate-fadeInUp">
+          <div className="flex flex-col h-screen md:h-[600px] bg-blue-500 text-white p-4 md:rounded-2xl shadow-xl">
             <Card className="flex flex-col flex-grow overflow-hidden rounded-2xl bg-transparent text-white">
               <div className="flex justify-between items-center px-4">
                 <h2 className="text-lg font-semibold">AI Assistant</h2>
                 <Button
-                  variant="ghost"
+                  variant="default"
                   size="icon"
                   onClick={() => setShowChat(false)}
                 >
@@ -207,7 +199,7 @@ export default function FloatingDock() {
                 {messages.map((msg, index) => (
                   <div
                     key={index}
-                    className={`flex flex-col max-w-[75%] px-4 py-2 rounded-xl text-sm ${
+                    className={`flex flex-col max-w-[100%] px-4 py-2 rounded-xl text-pretty text-sm ${
                       msg.from === "bot" ? "self-start" : "text-white self-end"
                     }`}
                   >
@@ -230,35 +222,20 @@ export default function FloatingDock() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                  className={"bg-white text-black"}
                 />
                 <div className="flex justify-between items-center gap-2 flex-wrap">
-                  <div className="flex gap-2 flex-wrap">
-                    <select
-                      value={language}
-                      onChange={(e) => setLanguage(e.target.value)}
-                      className="border rounded-md p-2 text-sm bg-black"
-                    >
-                      {supportedLanguages.map((lang) => (
-                        <option key={lang.code} value={lang.code}>
-                          {lang.label}
-                        </option>
-                      ))}
-                    </select>
+                  <div>
                     <Button variant="ghost">
                       <Paperclip className="h-5 w-5" />
                     </Button>
-                    <Button variant="ghost" onClick={handleVoice}>
-                      <Mic className="h-5 w-5" />
-                    </Button>
-                  </div>
-                  <div className="flex gap-2">
                     <Button variant="ghost" onClick={clearChat}>
                       <RefreshCw className="h-5 w-5" />
                     </Button>
-                    <Button onClick={handleSend}>
-                      <Send className="h-5 w-5" />
-                    </Button>
                   </div>
+                  <Button onClick={handleSend}>
+                    <Send className="h-5 w-5" />
+                  </Button>
                 </div>
               </div>
             </Card>
