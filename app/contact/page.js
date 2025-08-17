@@ -11,8 +11,8 @@ const Page = () => {
       </div>
 
       {/* Contact Info Section */}
-      <section className="bg-white border-b-2 px-4 sm:px-6 lg:px-8 py-16">
-        <div className="max-w-5xl w-full mx-auto p-6 sm:p-10 border-2 border-gray-900 text-gray-900 bg-blue-100 rounded-2xl">
+      <section className="bg-blue-100 border-b-2 px-4 sm:px-6 lg:px-8 py-16">
+        <div className="max-w-5xl w-full mx-auto p-6 sm:p-10 border-2 border-gray-900 text-gray-900 bg-white rounded-2xl">
           {/* Heading */}
           <span className="inline-block px-2 py-1 text-xs border border-gray-600 rounded-full text-gray-600">
             Reach Out To Us
