@@ -58,7 +58,10 @@ export function NavbarLayout() {
           />
           <NavItems items={navItems} />
           <div className="flex items-center gap-4">
-            <InteractiveHoverButton onClick={() => router.push("/contact")}>
+            <InteractiveHoverButton
+              onClick={() => router.push("/contact")}
+              className="border-2 border-gray-900"
+            >
               Enquire Now
             </InteractiveHoverButton>
           </div>
@@ -94,7 +97,10 @@ export function NavbarLayout() {
               </a>
             ))}
             <div className="flex w-full flex-col gap-4">
-              <InteractiveHoverButton onClick={handleclick} className="w-full">
+              <InteractiveHoverButton
+                onClick={handleclick}
+                className="w-full border-2 border-gray-900"
+              >
                 Enquire Now
               </InteractiveHoverButton>
             </div>

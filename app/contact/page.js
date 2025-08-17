@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const Page = () => {
   return (
-    <div className="bg-white">
+    <div className="">
       {/* Contact Form Section */}
       <section className="isolate px-4 sm:px-6 py-16 sm:py-24 lg:px-8">
         <ContactForm />
@@ -12,15 +12,15 @@ const Page = () => {
 
       {/* Contact Info Section */}
       <section className="px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="max-w-5xl w-full mx-auto p-6 sm:p-10 text-gray-100 bg-gradient-to-br from-[#0F172A] to-[#1E3A8A] rounded-2xl">
+        <div className="max-w-5xl w-full mx-auto p-6 sm:p-10 border-2 border-gray-900 text-gray-900 bg-blue-100 rounded-2xl">
           {/* Heading */}
-          <span className="inline-block px-2 py-1 text-xs border border-gray-600 rounded-full text-gray-300">
+          <span className="inline-block px-2 py-1 text-xs border border-gray-600 rounded-full text-gray-600">
             Reach Out To Us
           </span>
           <h1 className="text-3xl sm:text-4xl font-bold mt-4">
             We&apos;d love to hear from you.
           </h1>
-          <p className="mt-3 text-gray-300 text-sm sm:text-base">
+          <p className="mt-3 text-gray-700 text-sm sm:text-base">
             Or just reach out manually to{" "}
             <Link
               href="mailto:contact@autopixel.in"
@@ -43,7 +43,7 @@ const Page = () => {
                 </svg>
               </div>
               <p className="text-lg font-bold mt-3">Email Support</p>
-              <p className="text-gray-400 text-sm mt-1 mb-3">
+              <p className="text-gray-700 text-sm mt-1 mb-3">
                 Our team can respond in real time.
               </p>
               <Link
@@ -65,7 +65,7 @@ const Page = () => {
                 </svg>
               </div>
               <p className="text-lg font-bold mt-3">Visit Our Office</p>
-              <p className="text-gray-400 text-sm mt-1 mb-3">
+              <p className="text-gray-700 text-sm mt-1 mb-3">
                 Visit our location in real life.
               </p>
               <p className="font-semibold text-sm sm:text-base">
@@ -84,7 +84,7 @@ const Page = () => {
                 </svg>
               </div>
               <p className="text-lg font-bold mt-3">Call Us Directly</p>
-              <p className="text-gray-400 text-sm mt-1 mb-3">
+              <p className="text-gray-700 text-sm mt-1 mb-3">
                 Available during working hours.
               </p>
               <p className="font-semibold">+91 81058 71804</p>

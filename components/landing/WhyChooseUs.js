@@ -3,7 +3,7 @@ import { features } from "@/data/landingData";
 
 export default function WhyChooseUs() {
   return (
-    <section className="bg-gradient-to-br from-[#0F172A] to-[#1E3A8A] py-24 sm:py-32 text-white">
+    <section className="bg-blue-100 py-24 sm:py-32 text-gray-900">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid max-w-3xl gap-16 lg:max-w-none lg:grid-cols-2 lg:items-center">
           {/* Text Section */}

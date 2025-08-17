@@ -8,10 +8,10 @@ export default function Hero() {
   const handleClick = () => router.push("/contact");
 
   return (
-    <section className="relative w-full h-screen bg-gradient-to-br from-[#0F172A] to-[#1E3A8A] flex items-center">
+    <section className="relative w-full h-screen bg-blue-400 flex items-center">
       <div className="relative z-10 mx-auto max-w-3xl px-4 text-center">
         {/* Heading */}
-        <h1 className="text-[#38BDF8] text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">
+        <h1 className="text-gray-900 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">
           <span className="block text-3xl sm:text-4xl mb-2">
             Unlock Smarter Growth with AI
           </span>
@@ -30,7 +30,7 @@ export default function Hero() {
           <InteractiveHoverButton
             onClick={handleClick}
             aria-label="Start your automation journey"
-            className="border border-white"
+            className="border-2 border-gray-900"
           >
             Start Your Automation Journey
           </InteractiveHoverButton>

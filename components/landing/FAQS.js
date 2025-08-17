@@ -8,13 +8,13 @@ import {
 
 const FAQSection = () => {
   return (
-    <section className="bg-gradient-to-br from-[#0F172A] to-[#1E3A8A] py-24 px-4">
+    <section className="bg-blue-100 py-24 px-4">
       <div className="max-w-7xl mx-auto flex flex-col items-center">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-12 text-center">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-12 text-center">
           AI Automation FAQs
         </h2>
 
-        <div className="w-full md:max-w-3xl bg-white p-6 sm:p-12 rounded-3xl shadow-lg">
+        <div className="w-full md:max-w-3xl bg-white border-2 border-gray-900 p-6 sm:p-12 rounded-3xl shadow-lg">
           <Accordion
             type="single"
             collapsible

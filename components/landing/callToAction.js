@@ -5,9 +5,9 @@ import Link from "next/link";
 
 const CallToAction = () => {
   return (
-    <section className="bg-gradient-to-br from-[#0F172A] to-[#1E3A8A] px-4 py-12 sm:px-6 sm:py-20 lg:px-8">
+    <section className="bg-blue-100 px-4 py-12 sm:px-6 sm:py-20 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="relative isolate overflow-hidden rounded-3xl bg-white px-6 py-12 shadow-2xl sm:px-12 md:py-16 lg:grid lg:grid-cols-2 lg:gap-x-20 lg:px-16">
+        <div className="relative isolate overflow-hidden rounded-3xl bg-white border-2 border-gray-900 px-6 py-12 shadow-2xl sm:px-12 md:py-16 lg:grid lg:grid-cols-2 lg:gap-x-20 lg:px-16">
           {/* Text Section */}
           <div className="max-w-lg mx-auto text-center lg:mx-0 lg:text-left flex flex-col justify-center">
             <h2 className="text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl">

@@ -91,7 +91,7 @@ export function ExpandableCardSection() {
             key={card.title}
             layoutId={`card-${card.title}-${id}`}
             onClick={() => setActive(card)}
-            className="flex flex-col md:flex-row items-center md:items-start gap-4 p-6 bg-gradient-to-r from-white to-gray-50 dark:from-neutral-800 dark:to-neutral-900 rounded-2xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
+            className="flex flex-col md:flex-row border-2 border-gray-900 items-center md:items-start gap-4 p-6 bg-gradient-to-r from-white to-gray-50 dark:from-neutral-800 dark:to-neutral-900 rounded-2xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
           >
             <div className="flex-shrink-0">
               {React.isValidElement(card.src) ? (

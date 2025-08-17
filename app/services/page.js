@@ -66,11 +66,11 @@ export default function ServicesPage() {
   ];
 
   return (
-    <div className="bg-white text-gray-900 px-6 py-24 sm:py-32 lg:px-16">
+    <div className="bg-blue-100 text-gray-900 px-6 py-24 sm:py-32 lg:px-16">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-20">
-          <p className="text-base font-semibold text-blue-400">What We Offer</p>
+          <p className="text-base font-semibold text-gray-600">What We Offer</p>
           <h1 className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">
             Smart Solutions. Real Results.
           </h1>
@@ -113,7 +113,7 @@ export default function ServicesPage() {
                   alt={service.title}
                   width={600}
                   height={400}
-                  className="rounded-2xl shadow-xl object-cover w-full"
+                  className="rounded-2xl bg-white border-2 border-gray-900 shadow-xl object-cover w-full"
                 />
               </div>
             </div>
