@@ -224,7 +224,7 @@ export default function FloatingDock() {
                   <X className="w-5 h-5" />
                 </Button>
               </div>
-              <CardContent className="flex flex-col flex-grow p-4 overflow-y-auto gap-3">
+              <CardContent className="flex flex-col flex-grow p-4 bg-white overflow-y-auto gap-3">
                 {messages.map((msg, index) => (
                   <div
                     key={index}
@@ -252,13 +252,9 @@ export default function FloatingDock() {
                     >
                       {msg.text}
                     </ReactMarkdown>
-                    {isTyping ? (
-                      ""
-                    ) : (
-                      <span className="text-[10px] text-gray-600 mt-1 self-end">
-                        {formatTime(msg.timestamp)}
-                      </span>
-                    )}
+                    <span className="text-[10px] text-gray-600 mt-1 self-end">
+                      {formatTime(msg.timestamp)}
+                    </span>
                   </div>
                 ))}
                 {isTyping && (
