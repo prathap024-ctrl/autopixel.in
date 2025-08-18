@@ -214,7 +214,24 @@ export default function FloatingDock() {
                       msg.from === "bot" ? "self-start" : "text-white self-end"
                     }`}
                   >
-                    <ReactMarkdown>{msg.text}</ReactMarkdown>
+                    <ReactMarkdown
+                      components={{
+                        p: ({ node, ...props }) => (
+                          <p className="mb-3 leading-relaxed" {...props} />
+                        ),
+                        ul: ({ node, ...props }) => (
+                          <ul className="mb-3 list-disc pl-5" {...props} />
+                        ),
+                        ol: ({ node, ...props }) => (
+                          <ol className="mb-3 list-decimal pl-5" {...props} />
+                        ),
+                        li: ({ node, ...props }) => (
+                          <li className="mb-1" {...props} />
+                        ),
+                      }}
+                    >
+                      {msg.text}
+                    </ReactMarkdown>
                     <span className="text-[10px] text-gray-200 mt-1 self-end">
                       {formatTime(msg.timestamp)}
                     </span>
