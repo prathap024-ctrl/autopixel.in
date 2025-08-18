@@ -79,18 +79,36 @@ export default function FloatingDock() {
         body: JSON.stringify({ message: input }),
       });
 
-      const data = await response.json();
-      setTimeout(() => {
-        setMessages((prev) => [
-          ...prev,
-          {
-            from: "bot",
-            text: data.reply,
-            timestamp: new Date(),
-          },
-        ]);
-        setIsTyping(false);
-      }, 1000);
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+
+      const botMessage = {
+        from: "bot",
+        text: "",
+        timestamp: new Date(),
+      };
+
+      setMessages((prev) => [...prev, botMessage]);
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+
+        for (let char of chunk) {
+          setMessages((prev) => {
+            const updated = [...prev];
+            updated[updated.length - 1] = {
+              ...updated[updated.length - 1],
+              text: updated[updated.length - 1].text + char,
+            };
+            return updated;
+          });
+        }
+      }
+
+      setIsTyping(false);
     } catch (error) {
       console.error("Error sending message:", error);
       setMessages((prev) => [
@@ -194,10 +212,10 @@ export default function FloatingDock() {
 
       {showChat && (
         <div className="fixed bottom-5 md:bottom-4 right-0 md:right-4 w-full max-w-md z-50 animate-fadeInUp">
-          <div className="flex flex-col h-[600px] bg-blue-500 text-white p-4 rounded-2xl shadow-xl">
-            <Card className="flex flex-col flex-grow overflow-hidden rounded-2xl bg-transparent text-white">
+          <div className="flex flex-col h-[600px] bg-blue-400 text-gray-900 p-4 rounded-2xl border-2 border-gray-900">
+            <Card className="flex flex-col flex-grow overflow-hidden rounded-2xl border-2 border-gray-900 bg-blue-100 text-gray-900">
               <div className="flex justify-between items-center px-4">
-                <h2 className="text-lg font-semibold">AI Assistant</h2>
+                <h2 className="text-lg font-semibold">Got Questions?</h2>
                 <Button
                   variant="default"
                   size="icon"
@@ -210,8 +228,10 @@ export default function FloatingDock() {
                 {messages.map((msg, index) => (
                   <div
                     key={index}
-                    className={`flex flex-col max-w-[100%] py-2 rounded-xl text-pretty text-sm ${
-                      msg.from === "bot" ? "self-start" : "text-white self-end"
+                    className={`flex flex-col max-w-[80%] px-2 py-2 rounded-xl text-pretty text-sm ${
+                      msg.from === "bot"
+                        ? "self-start"
+                        : "text-gray-900 self-end"
                     }`}
                   >
                     <ReactMarkdown
@@ -232,32 +252,36 @@ export default function FloatingDock() {
                     >
                       {msg.text}
                     </ReactMarkdown>
-                    <span className="text-[10px] text-gray-200 mt-1 self-end">
-                      {formatTime(msg.timestamp)}
-                    </span>
+                    {isTyping ? (
+                      ""
+                    ) : (
+                      <span className="text-[10px] text-gray-600 mt-1 self-end">
+                        {formatTime(msg.timestamp)}
+                      </span>
+                    )}
                   </div>
                 ))}
                 {isTyping && (
-                  <div className="py-2 rounded-xl text-sm text-white self-start max-w-[75%]">
+                  <div className="py-2 text-sm text-gray-900 self-start max-w-[75%]">
                     <span className="animate-pulse">Typing...</span>
                   </div>
                 )}
                 <div ref={messagesEndRef} />
               </CardContent>
-              <div className="flex flex-col gap-2 p-4 border-t">
+              <div className="flex flex-col gap-2 p-4 border-t-2 border-gray-900">
                 <Input
                   placeholder="Type your message..."
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                  className={"bg-white text-black"}
+                  className={"bg-white text-black border-2 border-gray-900"}
                 />
                 <div className="flex justify-between items-center gap-2 flex-wrap">
-                  <div>
-                    <Button variant="ghost">
+                  <div className="space-x-2">
+                    <Button>
                       <Paperclip className="h-5 w-5" />
                     </Button>
-                    <Button variant="ghost" onClick={clearChat}>
+                    <Button onClick={clearChat}>
                       <RefreshCw className="h-5 w-5" />
                     </Button>
                   </div>
