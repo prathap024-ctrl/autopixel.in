@@ -96,16 +96,14 @@ export default function FloatingDock() {
 
         const chunk = decoder.decode(value, { stream: true });
 
-        for (let char of chunk) {
-          setMessages((prev) => {
-            const updated = [...prev];
-            updated[updated.length - 1] = {
-              ...updated[updated.length - 1],
-              text: updated[updated.length - 1].text + char,
-            };
-            return updated;
-          });
-        }
+        setMessages((prev) => {
+          const updated = [...prev];
+          updated[updated.length - 1] = {
+            ...updated[updated.length - 1],
+            text: updated[updated.length - 1].text + chunk,
+          };
+          return updated;
+        });
       }
 
       setIsTyping(false);
