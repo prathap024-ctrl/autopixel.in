@@ -32,8 +32,12 @@ export async function POST(req) {
       async start(controller) {
         await new Promise((res) => setTimeout(res, 30));
         for await (const chunk of result.stream) {
-          const delta = chunk.text();
-          controller.enqueue(encoder.encode(delta));
+          const delta = chunk.text() || "";
+          if (delta) {
+            controller.enqueue(
+              encoder.encode(`data: ${JSON.stringify({ content: delta })}\n\n`)
+            );
+          }
         }
         controller.close();
       },
@@ -41,7 +45,9 @@ export async function POST(req) {
 
     return new Response(readableStream, {
       headers: {
-        "Content-Type": "text/plain; charset=utf-8",
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
       },
     });
   } catch (error) {

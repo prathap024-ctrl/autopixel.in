@@ -82,28 +82,41 @@ export default function FloatingDock() {
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
 
-      const botMessage = {
-        from: "bot",
-        text: "",
-        timestamp: new Date(),
-      };
-
-      setMessages((prev) => [...prev, botMessage]);
+      setMessages((prev) => [
+        ...prev,
+        { from: "bot", text: "", timestamp: new Date() },
+      ]);
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
 
         const chunk = decoder.decode(value, { stream: true });
+        const lines = chunk.split("\n");
+        for (const line of lines) {
+          if (line.startsWith("data: ")) {
+            const data = JSON.parse(line.slice(6));
+            console.log(data);
+            setMessages((prev) => {
+              const updated = [...prev];
+              const lastMsg = updated[updated.length - 1];
 
-        setMessages((prev) => {
-          const updated = [...prev];
-          updated[updated.length - 1] = {
-            ...updated[updated.length - 1],
-            text: updated[updated.length - 1].text + chunk,
-          };
-          return updated;
-        });
+              if (!lastMsg || lastMsg.from !== "bot") {
+                updated.push({
+                  from: "bot",
+                  text: data.content,
+                  timestamp: new Date(),
+                });
+              } else {
+                updated[updated.length - 1] = {
+                  ...lastMsg,
+                  text: lastMsg.text + data.content,
+                };
+              }
+              return updated;
+            });
+          }
+        }
       }
 
       setIsTyping(false);
