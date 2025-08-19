@@ -236,7 +236,7 @@ export default function FloatingDock() {
                 {messages.map((msg, index) => (
                   <div
                     key={index}
-                    className={`flex flex-col max-w-[80%] px-2 py-2 rounded-xl text-pretty text-sm ${
+                    className={`flex flex-col max-w-[90%] px-2 py-2 rounded-xl text-pretty text-sm ${
                       msg.from === "bot"
                         ? "self-start"
                         : "text-gray-900 self-end"
