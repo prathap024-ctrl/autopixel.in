@@ -34,10 +34,8 @@ export default function FloatingDock() {
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  const [language, setLanguage] = useState("auto");
 
   const messagesEndRef = useRef(null);
-  const recognitionRef = useRef(null);
 
   useEffect(() => {
     const saved = localStorage.getItem("chat-history");
@@ -268,7 +266,7 @@ export default function FloatingDock() {
                   </div>
                 ))}
                 {isTyping && (
-                  <div className="py-2 text-sm text-gray-900 self-start max-w-[75%]">
+                  <div className="text-sm text-gray-900 self-start max-w-[75%]">
                     <span className="animate-pulse">Typing...</span>
                   </div>
                 )}

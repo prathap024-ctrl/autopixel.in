@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# AUTOPIXEL.IN  
+*Transforming Ideas into Limitless Digital Reality*  
 
-## Getting Started
+![last-commit](https://img.shields.io/github/last-commit/prathap024-ctrl/autopixel.in?style=flat&logo=git&logoColor=white&color=0080ff)  
+![repo-top-language](https://img.shields.io/github/languages/top/prathap024-ctrl/autopixel.in?style=flat&color=0080ff)  
+![repo-language-count](https://img.shields.io/github/languages/count/prathap024-ctrl/autopixel.in?style=flat&color=0080ff)  
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ⚡ Built With  
+- ![JSON](https://img.shields.io/badge/JSON-000000.svg?style=flat&logo=JSON&logoColor=white)  
+- ![Markdown](https://img.shields.io/badge/Markdown-000000.svg?style=flat&logo=Markdown&logoColor=white)  
+- ![Resend](https://img.shields.io/badge/Resend-000000.svg?style=flat&logo=Resend&logoColor=white)  
+- ![Lucide](https://img.shields.io/badge/Lucide-F56565.svg?style=flat&logo=Lucide&logoColor=white)  
+- ![npm](https://img.shields.io/badge/npm-CB3837.svg?style=flat&logo=npm&logoColor=white)  
+- ![.ENV](https://img.shields.io/badge/.ENV-ECD53F.svg?style=flat&logo=dotenv&logoColor=black)  
+- ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=flat&logo=JavaScript&logoColor=black)  
+- ![React](https://img.shields.io/badge/React-61DAFB.svg?style=flat&logo=React&logoColor=black)  
+- ![ESLint](https://img.shields.io/badge/ESLint-4B32C3.svg?style=flat&logo=ESLint&logoColor=white)  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 📑 Table of Contents  
+- [Overview](#overview)  
+- [Getting Started](#getting-started)  
+  - [Prerequisites](#prerequisites)  
+  - [Installation](#installation)  
+  - [Usage](#usage)  
+  - [Testing](#testing)  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🔎 Overview  
+**autopixel.in** is a comprehensive developer toolkit designed to streamline the creation of scalable, AI-powered web applications.  
+Built on **Next.js**, it combines **generative AI, multimedia features, and interactive UI components** to deliver modern, high-performance web experiences.  
 
-To learn more about Next.js, take a look at the following resources:
+### Why autopixel.in?  
+This project empowers developers to rapidly build engaging, scalable websites with integrated AI capabilities.  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Key Features:  
+- 🧠 **AI Integration:** Seamless real-time chat powered by **Google Generative AI** and **Vapi AI voice assistant**.  
+- 🖼️ **Modular UI Components:** Reusable, accessible components for layouts, forms, cards, and animations.  
+- ⚡ **Performance Focus:** Next.js architecture optimized for SSR, font, and style management.  
+- 🛠️ **Developer-Friendly:** Configurable ESLint, Tailwind CSS, and path aliasing.  
+- 🌐 **Interactive Multimedia:** Multimedia-rich pages, animated backgrounds, and dynamic visuals.  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🚀 Getting Started  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### ✅ Prerequisites  
+This project requires the following:  
+- **Programming Language:** JavaScript  
+- **Package Manager:** npm  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🔧 Installation  
+Build autopixel.in from source and install dependencies:  
+
+```sh
+# Clone the repository
+git clone https://github.com/prathap024-ctrl/autopixel.in
+
+# Navigate into the project directory
+cd autopixel.in
+
+# Install dependencies
+npm install
