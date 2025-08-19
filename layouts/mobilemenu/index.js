@@ -96,7 +96,6 @@ export default function FloatingDock() {
         for (const line of lines) {
           if (line.startsWith("data: ")) {
             const data = JSON.parse(line.slice(6));
-            console.log(data);
             setMessages((prev) => {
               const updated = [...prev];
               const lastMsg = updated[updated.length - 1];
