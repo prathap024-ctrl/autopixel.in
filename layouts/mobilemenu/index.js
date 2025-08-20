@@ -15,11 +15,9 @@ import {
   Mail,
   FileText,
   Bot,
-  Mic,
-  Paperclip,
-  RefreshCw,
   Send,
   X,
+  Trash,
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
@@ -224,13 +222,18 @@ export default function FloatingDock() {
             <Card className="flex flex-col flex-grow overflow-hidden rounded-2xl border-2 border-gray-900 bg-blue-100 text-gray-900">
               <div className="flex justify-between items-center px-4">
                 <h2 className="text-lg font-semibold">Got Questions?</h2>
-                <Button
-                  variant="default"
-                  size="icon"
-                  onClick={() => setShowChat(false)}
-                >
-                  <X className="w-5 h-5" />
-                </Button>
+                <div className="space-x-2">
+                  <Button onClick={clearChat}>
+                    <Trash className="h-5 w-5" />
+                  </Button>
+                  <Button
+                    variant="default"
+                    size="icon"
+                    onClick={() => setShowChat(false)}
+                  >
+                    <X className="w-5 h-5" />
+                  </Button>
+                </div>
               </div>
               <CardContent className="flex flex-col flex-grow p-4 bg-white overflow-y-auto gap-3">
                 {messages.map((msg, index) => (
@@ -272,7 +275,7 @@ export default function FloatingDock() {
                 )}
                 <div ref={messagesEndRef} />
               </CardContent>
-              <div className="flex flex-col gap-2 p-4 border-t-2 border-gray-900">
+              <div className="flex gap-2 p-4 border-t-2 border-gray-900">
                 <Input
                   placeholder="Type your message..."
                   value={input}
@@ -280,15 +283,7 @@ export default function FloatingDock() {
                   onKeyDown={(e) => e.key === "Enter" && handleSend()}
                   className={"bg-white text-black border-2 border-gray-900"}
                 />
-                <div className="flex justify-between items-center gap-2 flex-wrap">
-                  <div className="space-x-2">
-                    <Button>
-                      <Paperclip className="h-5 w-5" />
-                    </Button>
-                    <Button onClick={clearChat}>
-                      <RefreshCw className="h-5 w-5" />
-                    </Button>
-                  </div>
+                <div>
                   <Button onClick={handleSend}>
                     <Send className="h-5 w-5" />
                   </Button>

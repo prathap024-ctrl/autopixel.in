@@ -3,47 +3,51 @@ import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
 import dotenv from "dotenv";
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
-import { ChromaRateLimitError, CloudClient } from "chromadb";
+import { CloudClient } from "chromadb";
 import { PrismaClient } from "@prisma/client";
+import { OpenAI } from "openai";
 
 dotenv.config();
 
-const genai = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+  baseURL: process.env.OPENAI_BASE_URL,
+});
 
 export async function POST(req) {
   try {
     const { message } = await req.json();
 
-    const pdfPath =
-      "C:/Users/Preethi/Desktop/autopixel/docs/faqChatbot/AutoPixel Digital – Chatbot FAQs & Knowledge Notes.pdf";
+    //const pdfPath =
+    //  "C:/Users/Preethi/Desktop/autopixel/docs/faqChatbot/AutoPixel Digital – Chatbot FAQs & Knowledge Notes.pdf";
 
-    const loader = new PDFLoader(pdfPath);
+    //const loader = new PDFLoader(pdfPath);
 
-    const docs = await loader.load();
+    // const docs = await loader.load();
 
-    if (!docs) {
-      return Response.json({ error: "Failed to load PDF document" });
-    }
+    //if (!docs) {
+    //  return Response.json({ error: "Failed to load PDF document" });
+    //}
 
     if (!message || message.trim() === "") {
       return Response.json({ error: "Message is required" });
     }
 
-    const textSplitter = new RecursiveCharacterTextSplitter({
-      chunkSize: 200,
-      chunkOverlap: 100,
-    });
+    //const textSplitter = new RecursiveCharacterTextSplitter({
+    //  chunkSize: 200,
+    //  chunkOverlap: 100,
+    //});
 
-    let splitText = [];
-    for (const doc of docs) {
-      const text = await textSplitter.splitText(doc.pageContent);
-      splitText.push(...text);
-    }
+    //let splitText = [];
+    //for (const doc of docs) {
+    //  const text = await textSplitter.splitText(doc.pageContent);
+    //  splitText.push(...text);
+    //}
 
-    if (!splitText || splitText.length === 0) {
-      return Response.json({ error: "Failed to split text" });
-    }
-    const context = splitText.join("\n");
+    //if (!splitText || splitText.length === 0) {
+    //  return Response.json({ error: "Failed to split text" });
+    //}
+    //const context = splitText.join("\n");
 
     const embeddings = new GoogleGenerativeAIEmbeddings({
       model: "text-embedding-004",
@@ -55,26 +59,27 @@ export async function POST(req) {
       database: process.env.CHROMADB_DATABASE_ID,
     });
 
-    const collection = await client.getOrCreateCollection({
+    const collection = await client.getCollection({
       name: "chatbot_faqs",
+      embeddingFunction: embeddings,
     });
 
-    await collection.add({
-      ids: ["id1"],
-      documents: [context],
-      metadatas: [{ source: pdfPath }],
-      embeddings: await embeddings.embedDocuments([context]),
-    });
+    //await collection.add({
+    //  ids: ["id1"],
+    //  documents: [context],
+    //  metadatas: [{ source: pdfPath }],
+    //  embeddings: await embeddings.embedDocuments([context]),
+    //});
 
-    const model = genai.getGenerativeModel({
-      model: "gemini-2.0-flash",
-      temperature: 0,
-    });
-
+    const queryEmbedding = await embeddings.embedQuery(message);
     const retrievedDocs = await collection.query({
-      queryEmbeddings: [await embeddings.embedQuery(message)],
-      nResults: 5,
+      queryEmbeddings: [queryEmbedding],
+      nResults: 3,
+      include: ["embeddings", "documents", "distances", "metadatas", "uris"],
     });
+    const recievedText = retrievedDocs.documents
+      ? retrievedDocs.documents.flat().join("\n")
+      : "";
 
     const systemMessageContent =
       "You are an assistant for question-answering tasks. " +
@@ -83,36 +88,34 @@ export async function POST(req) {
       "don't know. Use three sentences maximum and keep the " +
       "answer concise." +
       "\n\n" +
-      `${context}`;
+      `${recievedText}`;
 
-    const recievedText = retrievedDocs.documents
-      ? retrievedDocs.documents.flat().join("\n")
-      : "";
-
-    const result = await model.generateContentStream({
-      contents: [
+    const result = await openai.chat.completions.create({
+      model: "deepseek/deepseek-r1-0528:free",
+      messages: [
+        {
+          role: "system",
+          content: `${systemMessageContent}`,
+        },
         {
           role: "user",
-          parts: [
-            { text: `Context from database:\n${recievedText}` },
-            { text: systemMessageContent },
-            { text: `Question: ${message}` },
-          ],
+          content: `${message}`,
         },
       ],
+      stream: true,
     });
 
     if (!result) {
       return Response.json({ error: "Failed to generate response" });
     }
 
-    const responseText = (await result.response).text();
+    const textResponse = result.choices?.[0]?.message?.content || "";
 
     const prisma = new PrismaClient();
     await prisma.chatbot_faq.create({
       data: {
         question: message,
-        answer: responseText,
+        answer: textResponse,
       },
     });
 
@@ -121,8 +124,8 @@ export async function POST(req) {
     const readableStream = new ReadableStream({
       async start(controller) {
         await new Promise((res) => setTimeout(res, 30));
-        for await (const chunk of result.stream) {
-          const delta = chunk.text() || "";
+        for await (const chunk of result) {
+          const delta = chunk.choices?.[0]?.delta?.content || "";
           if (delta) {
             controller.enqueue(
               encoder.encode(`data: ${JSON.stringify({ content: delta })}\n\n`)

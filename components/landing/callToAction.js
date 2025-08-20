@@ -20,7 +20,7 @@ const CallToAction = () => {
             </p>
             <div className="mt-8 flex justify-center lg:justify-start">
               <Link href="/" passHref>
-                <InteractiveHoverButton className="text-sm font-semibold">
+                <InteractiveHoverButton className="text-sm font-semibold border-2 border-gray-900">
                   Discuss Now
                 </InteractiveHoverButton>
               </Link>
