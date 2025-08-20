@@ -14,6 +14,8 @@ const openai = new OpenAI({
   baseURL: process.env.OPENAI_BASE_URL,
 });
 
+const prisma = new PrismaClient();
+
 export async function POST(req) {
   try {
     const { message } = await req.json();
@@ -111,7 +113,6 @@ export async function POST(req) {
 
     const textResponse = result.choices?.[0]?.message?.content || "";
 
-    const prisma = new PrismaClient();
     await prisma.chatbot_faq.create({
       data: {
         question: message,
