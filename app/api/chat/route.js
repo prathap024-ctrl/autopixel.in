@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import { CloudClient } from "chromadb";
-import { PrismaClient } from "@prisma/client";
 import { OpenAI } from "openai";
 
 dotenv.config();
@@ -14,7 +13,6 @@ const openai = new OpenAI({
   baseURL: process.env.OPENAI_BASE_URL,
 });
 
-const prisma = new PrismaClient();
 
 export async function POST(req) {
   try {
@@ -110,15 +108,6 @@ export async function POST(req) {
     if (!result) {
       return Response.json({ error: "Failed to generate response" });
     }
-
-    const textResponse = result.choices?.[0]?.message?.content || "";
-
-    await prisma.chatbot_faq.create({
-      data: {
-        question: message,
-        answer: textResponse,
-      },
-    });
 
     const encoder = new TextEncoder();
 
