@@ -18,6 +18,7 @@ import {
   Send,
   X,
   Trash,
+  Dot,
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 

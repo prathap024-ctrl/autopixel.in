@@ -1,115 +1,101 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
 import dotenv from "dotenv";
-import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
-import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
-import { CloudClient } from "chromadb";
-import { OpenAI } from "openai";
+import { AgentHelper } from "@/helper/chatbot/Agent.helper";
+//import { redis } from "@/lib/redis";
 
 dotenv.config();
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-  baseURL: process.env.OPENAI_BASE_URL,
-});
+// In-memory IP map for rate limiting
+const ipMap = new Map();
+const WINDOW = 60 * 1000; // 1 minute
+const MAX_REQUESTS = 10;
 
+function checkRateLimit(ip) {
+  const now = Date.now();
+  let record = ipMap.get(ip);
+
+  if (!record) {
+    ipMap.set(ip, { count: 1, start: now });
+    return { allowed: true, remaining: MAX_REQUESTS - 1 };
+  }
+
+  if (now - record.start < WINDOW) {
+    if (record.count >= MAX_REQUESTS) {
+      return { allowed: false, retryAfter: WINDOW - (now - record.start) };
+    }
+    record.count++;
+    ipMap.set(ip, record);
+    return { allowed: true, remaining: MAX_REQUESTS - record.count };
+  }
+
+  // Reset window
+  ipMap.set(ip, { count: 1, start: now });
+  return { allowed: true, remaining: MAX_REQUESTS - 1 };
+}
 
 export async function POST(req) {
   try {
     const { message } = await req.json();
 
-    //const pdfPath =
-    //  "C:/Users/Preethi/Desktop/autopixel/docs/faqChatbot/AutoPixel Digital – Chatbot FAQs & Knowledge Notes.pdf";
-
-    //const loader = new PDFLoader(pdfPath);
-
-    // const docs = await loader.load();
-
-    //if (!docs) {
-    //  return Response.json({ error: "Failed to load PDF document" });
-    //}
-
     if (!message || message.trim() === "") {
       return Response.json({ error: "Message is required" });
     }
 
-    //const textSplitter = new RecursiveCharacterTextSplitter({
-    //  chunkSize: 200,
-    //  chunkOverlap: 100,
-    //});
-
-    //let splitText = [];
-    //for (const doc of docs) {
-    //  const text = await textSplitter.splitText(doc.pageContent);
-    //  splitText.push(...text);
+    //const cacheKey = `chatbot_faqs:${message}`;
+    //const cached = await redis.get(cacheKey);
+    //
+    //if (cached) {
+    //  const cachedData = JSON.parse(cached);
+    //  const encoder = new TextEncoder();
+    //  const textChunks = cachedData.text;
+    //  const readableStream = new ReadableStream({
+    //    async start(controller) {
+    //      await new Promise((res) => setTimeout(res, 30));
+    //      for (const chunk of textChunks) {
+    //        controller.enqueue(
+    //          encoder.encode(`data: ${JSON.stringify({ content: chunk })}\n\n`)
+    //        );
+    //      }
+    //      controller.close();
+    //    },
+    //  });
+    //
+    //  return new Response(readableStream, {
+    //    headers: {
+    //      "Content-Type": "text/event-stream",
+    //      "Cache-Control": "no-cache",
+    //      Connection: "keep-alive",
+    //    },
+    //  });
     //}
 
-    //if (!splitText || splitText.length === 0) {
-    //  return Response.json({ error: "Failed to split text" });
-    //}
-    //const context = splitText.join("\n");
+    const ip =
+      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      req.headers.get("x-real-ip") ||
+      "unknown";
 
-    const embeddings = new GoogleGenerativeAIEmbeddings({
-      model: "text-embedding-004",
-    });
-
-    const client = new CloudClient({
-      apiKey: process.env.CHROMADB_API_KEY,
-      tenant: process.env.CHROMADB_TENANT_ID,
-      database: process.env.CHROMADB_DATABASE_ID,
-    });
-
-    const collection = await client.getCollection({
-      name: "chatbot_faqs",
-      embeddingFunction: embeddings,
-    });
-
-    //await collection.add({
-    //  ids: ["id1"],
-    //  documents: [context],
-    //  metadatas: [{ source: pdfPath }],
-    //  embeddings: await embeddings.embedDocuments([context]),
-    //});
-
-    const queryEmbedding = await embeddings.embedQuery(message);
-    const retrievedDocs = await collection.query({
-      queryEmbeddings: [queryEmbedding],
-      nResults: 3,
-      include: ["embeddings", "documents", "distances", "metadatas", "uris"],
-    });
-    const recievedText = retrievedDocs.documents
-      ? retrievedDocs.documents.flat().join("\n")
-      : "";
-
-    const systemMessageContent =
-      "You are an assistant for question-answering tasks. " +
-      "Use the following pieces of retrieved context to answer " +
-      "the question. If you don't know the answer, say that you " +
-      "don't know. Use three sentences maximum and keep the " +
-      "answer concise." +
-      "\n\n" +
-      `${recievedText}`;
-
-    const result = await openai.chat.completions.create({
-      model: "deepseek/deepseek-r1-0528:free",
-      messages: [
-        {
-          role: "system",
-          content: `${systemMessageContent}`,
-        },
-        {
-          role: "user",
-          content: `${message}`,
-        },
-      ],
-      stream: true,
-    });
-
-    if (!result) {
-      return Response.json({ error: "Failed to generate response" });
+    const rate = checkRateLimit(ip);
+    if (!rate.allowed) {
+      return new Response(
+        JSON.stringify({
+          error: `Rate limit exceeded. Try again in ${Math.ceil(
+            rate.retryAfter / 1000
+          )}s.`,
+        }),
+        { status: 429, headers: { "Content-Type": "application/json" } }
+      );
     }
 
+    //calling AgentHelper
+    const result = await AgentHelper(message);
+
+    if (result.error) {
+      return Response.json({ error: result.error });
+    }
+    console.log(result);
+    
     const encoder = new TextEncoder();
+
+    //let finalText = "";
 
     const readableStream = new ReadableStream({
       async start(controller) {
@@ -117,11 +103,15 @@ export async function POST(req) {
         for await (const chunk of result) {
           const delta = chunk.choices?.[0]?.delta?.content || "";
           if (delta) {
+            //finalText += delta;
             controller.enqueue(
               encoder.encode(`data: ${JSON.stringify({ content: delta })}\n\n`)
             );
           }
         }
+        //await redis.set(cacheKey, JSON.stringify({ text: finalText }), {
+        //  ex: 30,
+        //});
         controller.close();
       },
     });
