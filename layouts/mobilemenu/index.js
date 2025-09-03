@@ -174,10 +174,10 @@ export default function FloatingDock() {
       <Popover>
         <PopoverTrigger asChild>
           <Button
-            className="rounded-full h-14 w-14 p-0 shadow-xl"
+            className="rounded-full bg-white hover:bg-white/50 cursor-pointer h-14 w-14 p-0 shadow-xl"
             variant="default"
           >
-            <MessageCircle className="h-6 w-6" />
+            <MessageCircle className="h-6 w-6 text-black" />
           </Button>
         </PopoverTrigger>
         <PopoverContent
@@ -219,32 +219,31 @@ export default function FloatingDock() {
 
       {showChat && (
         <div className="fixed bottom-5 md:bottom-4 right-0 md:right-4 w-full max-w-md z-50 animate-fadeInUp">
-          <div className="flex flex-col h-[600px] bg-blue-400 text-gray-900 p-4 rounded-2xl border-2 border-gray-900">
-            <Card className="flex flex-col flex-grow overflow-hidden rounded-2xl border-2 border-gray-900 bg-blue-100 text-gray-900">
+          <div className="flex flex-col h-[600px] bg-gray-900 text-white p-4 rounded-2xl">
+            <Card className="flex flex-col flex-grow overflow-hidden rounded-2xl bg-gray-900 text-white">
               <div className="flex justify-between items-center px-4">
                 <h2 className="text-lg font-semibold">Got Questions?</h2>
                 <div className="space-x-2">
-                  <Button onClick={clearChat}>
-                    <Trash className="h-5 w-5" />
+                  <Button onClick={clearChat} variant="outline" size="icon">
+                    <Trash className="h-5 w-5 text-black" />
                   </Button>
                   <Button
-                    variant="default"
+                    variant="outline"
                     size="icon"
                     onClick={() => setShowChat(false)}
                   >
-                    <X className="w-5 h-5" />
+                    <X className="w-5 h-5 text-black" />
                   </Button>
                 </div>
               </div>
-              <CardContent className="flex flex-col flex-grow p-4 bg-white overflow-y-auto gap-3">
+              <CardContent className="flex flex-col flex-grow p-4 bg-gray-900 overflow-y-auto gap-3">
                 {messages.map((msg, index) => (
                   <div
                     key={index}
-                    className={`flex flex-col max-w-[90%] px-2 py-2 rounded-xl text-pretty text-sm ${
-                      msg.from === "bot"
+                    className={`flex flex-col max-w-[90%] px-2 py-2 rounded-xl text-pretty text-sm ${msg.from === "bot"
                         ? "self-start"
-                        : "text-gray-900 self-end"
-                    }`}
+                        : "text-white self-end"
+                      }`}
                   >
                     <ReactMarkdown
                       components={{
@@ -270,7 +269,7 @@ export default function FloatingDock() {
                   </div>
                 ))}
                 {isTyping && (
-                  <div className="text-sm text-gray-900 self-start max-w-[75%]">
+                  <div className="text-sm text-white self-start max-w-[75%]">
                     <span className="animate-pulse">Typing...</span>
                   </div>
                 )}
@@ -285,8 +284,8 @@ export default function FloatingDock() {
                   className={"bg-white text-black border-2 border-gray-900"}
                 />
                 <div>
-                  <Button onClick={handleSend}>
-                    <Send className="h-5 w-5" />
+                  <Button onClick={handleSend} variant="outline">
+                    <Send className="h-5 w-5 text-black" />
                   </Button>
                 </div>
               </div>
