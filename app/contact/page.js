@@ -11,16 +11,16 @@ const Page = () => {
       </div>
 
       {/* Contact Info Section */}
-      <section className="bg-gray-900 px-4 sm:px-6 lg:px-8 py-16">
-        <div className="max-w-5xl w-full mx-auto p-6 sm:p-10 border-2 border-gray-900 text-gray-900 bg-white rounded-2xl">
+      <section className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 border-b-2 px-4 sm:px-6 lg:px-8 py-16">
+        <div className="max-w-5xl w-full mx-auto p-6 sm:p-10 bg-white/5 backdrop-blur-sm border border-white/10 text-white rounded-2xl">
           {/* Heading */}
-          <span className="inline-block px-2 py-1 text-xs rounded-full text-gray-600">
+          <span className="inline-block px-2 py-1 text-xs border border-gray-600 rounded-full text-white">
             Reach Out To Us
           </span>
           <h1 className="text-3xl sm:text-4xl font-bold mt-4">
             We&apos;d love to hear from you.
           </h1>
-          <p className="mt-3 text-gray-700 text-sm sm:text-base">
+          <p className="mt-3 text-white text-sm sm:text-base">
             Or just reach out manually to{" "}
             <Link
               href="mailto:contact@autopixel.in"
@@ -43,7 +43,7 @@ const Page = () => {
                 </svg>
               </div>
               <p className="text-lg font-bold mt-3">Email Support</p>
-              <p className="text-gray-700 text-sm mt-1 mb-3">
+              <p className="text-gray-100 text-sm mt-1 mb-3">
                 Our team can respond in real time.
               </p>
               <Link
@@ -65,7 +65,7 @@ const Page = () => {
                 </svg>
               </div>
               <p className="text-lg font-bold mt-3">Visit Our Office</p>
-              <p className="text-gray-700 text-sm mt-1 mb-3">
+              <p className="text-gray-100 text-sm mt-1 mb-3">
                 Visit our location in real life.
               </p>
               <p className="font-semibold text-sm sm:text-base">
@@ -84,7 +84,7 @@ const Page = () => {
                 </svg>
               </div>
               <p className="text-lg font-bold mt-3">Call Us Directly</p>
-              <p className="text-gray-700 text-sm mt-1 mb-3">
+              <p className="text-gray-100 text-sm mt-1 mb-3">
                 Available during working hours.
               </p>
               <p className="font-semibold">+91 81058 71804</p>

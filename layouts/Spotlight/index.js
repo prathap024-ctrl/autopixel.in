@@ -91,13 +91,13 @@ export function ExpandableCardSection() {
             key={card.title}
             layoutId={`card-${card.title}-${id}`}
             onClick={() => setActive(card)}
-            className="flex flex-col md:flex-row border-2 border-gray-900 items-center md:items-start gap-4 p-6 bg-gradient-to-r from-white to-gray-50 dark:from-neutral-800 dark:to-neutral-900 rounded-2xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
+            className="flex flex-col md:flex-row items-center md:items-start gap-4 p-6 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
           >
             <div className="flex-shrink-0">
               {React.isValidElement(card.src) ? (
                 React.cloneElement(card.src, {
                   size: 48,
-                  className: "text-gray-800 dark:text-gray-200",
+                  className: "text-white dark:text-gray-200",
                 })
               ) : (
                 <Image
@@ -110,14 +110,14 @@ export function ExpandableCardSection() {
               )}
             </div>
             <div className="flex-1 flex flex-col justify-between">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-lg font-semibold text-white dark:text-white">
                 {card.title}
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base line-clamp-3 mt-1">
+              <p className="text-white dark:text-gray-400 text-sm md:text-base line-clamp-3 mt-1">
                 {card.description}
               </p>
             </div>
-            <button className="mt-4 md:mt-0 md:ml-4 px-4 py-2 bg-blue-400 hover:bg-blue-500 text-white rounded-full font-semibold text-sm transition">
+            <button className="mt-4 md:mt-0 md:ml-4 px-4 py-2 bg-transparent hover:bg-gray-900 cursor-pointer text-white rounded-full font-semibold text-sm transition">
               {card.ctaText}
             </button>
           </motion.li>
