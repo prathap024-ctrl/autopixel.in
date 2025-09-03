@@ -46,7 +46,7 @@ const values = [
 
 export default function AboutPage() {
   return (
-    <section className="relative isolate overflow-hidden bg-blue-400 border-b-2 border-t-2 py-24 sm:py-32">
+    <section className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32">
       {/* Decorative background elements */}
       <div
         aria-hidden="true"
@@ -78,7 +78,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 md:grid-cols-1 gap-6 text-base font-semibold text-gray-900 md:flex lg:gap-x-10">
             {links.map((link) => (
               <Link key={link.name} href={link.href}>
-                <InteractiveHoverButton className="border-2 border-gray-900 text-gray-900 bg-white text-xs md:text-lg hover:bg-gray-100 transition-colors duration-300">
+                <InteractiveHoverButton className="border-2 border-white text-gray-900 bg-white text-xs md:text-lg hover:bg-gray-100 transition-colors duration-300">
                   {link.name}
                 </InteractiveHoverButton>
               </Link>
@@ -113,8 +113,8 @@ export default function AboutPage() {
                     className="text-center border-2 border-gray-900 shadow-xl rounded-2xl bg-white dark:bg-slate-800"
                   >
                     <CardContent className="p-6">
-                      <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Icon className="h-6 w-6 text-blue-400" />
+                      <div className="w-12 h-12 bg-blue-100 dark:bg-gray-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Icon className="h-6 w-6 text-gray-400" />
                       </div>
                       <h3 className="text-lg font-semibold text-foreground mb-2">
                         {value.title}

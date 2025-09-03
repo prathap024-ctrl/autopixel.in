@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const CallToAction = () => {
   return (
-    <section className="bg-blue-100 border-b-2 px-4 py-12 sm:px-6 sm:py-20 lg:px-8">
+    <section className="bg-gray-900 px-4 py-12 sm:px-6 sm:py-20 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="relative isolate overflow-hidden rounded-3xl bg-white border-2 border-gray-900 px-6 py-12 shadow-2xl sm:px-12 md:py-16 lg:grid lg:grid-cols-2 lg:gap-x-20 lg:px-16">
           {/* Text Section */}
@@ -31,7 +31,7 @@ const CallToAction = () => {
           <div className="relative mt-12 lg:mt-0 flex justify-center lg:justify-end">
             <Image
               alt="AI Automation Workflow"
-              src="/build.svg"
+              src="/automation.jpg"
               width={700}
               height={500}
               className="w-full h-auto max-w-md lg:max-w-lg"

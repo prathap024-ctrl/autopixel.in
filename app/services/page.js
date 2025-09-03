@@ -66,15 +66,15 @@ export default function ServicesPage() {
   ];
 
   return (
-    <div className="bg-blue-100 text-gray-900 border-t-2 border-b-2 px-6 py-24 sm:py-32 lg:px-16">
+    <div className="bg-gray-900 text-white border-t-2 border-b-2 px-6 py-24 sm:py-32 lg:px-16">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-20">
-          <p className="text-base font-semibold text-gray-600">What We Offer</p>
+          <p className="text-base font-semibold text-white">What We Offer</p>
           <h1 className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">
             Smart Solutions. Real Results.
           </h1>
-          <p className="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-6 text-lg text-white max-w-2xl mx-auto">
             From automation to client acquisition systems, we bring tailored
             AI-powered services to help your business grow faster and smarter.
             Every solution is built to scale and deliver measurable ROI.
@@ -91,15 +91,15 @@ export default function ServicesPage() {
               } items-center gap-12`}
             >
               {/* Text */}
-              <div className="lg:w-1/2 text-lg text-gray-700">
+              <div className="lg:w-1/2 text-lg text-white">
                 <div className="flex items-center gap-3 mb-4">
                   {service.icon}
-                  <h2 className="text-2xl font-semibold text-gray-900">
+                  <h2 className="text-2xl font-semibold text-white">
                     {service.title}
                   </h2>
                 </div>
                 <p className="mb-4">{service.description}</p>
-                <ul className="list-disc pl-5 text-gray-600 space-y-2">
+                <ul className="list-disc pl-5 text-white space-y-2">
                   {service.benefits.map((benefit, i) => (
                     <li key={i}>{benefit}</li>
                   ))}
@@ -125,7 +125,7 @@ export default function ServicesPage() {
           <h2 className="text-2xl font-bold tracking-tight">
             Built for startups and growing businesses
           </h2>
-          <p className="mt-6 text-gray-600">
+          <p className="mt-6 text-white">
             Whether you&apos;re looking to scale lead gen or improve operational
             efficiency, our services are designed for fast-growing brands ready
             to level up. Everything we build is tailored, scalable, and
@@ -134,7 +134,7 @@ export default function ServicesPage() {
           <div className="mt-8">
             <a
               href="/contact"
-              className="inline-block rounded-full bg-blue-400 px-6 py-3 text-white font-medium hover:bg-blue-500 transition"
+              className="inline-block rounded-full bg-white px-6 py-3 text-gray-900 font-medium transition"
             >
               Let’s Talk Growth
             </a>

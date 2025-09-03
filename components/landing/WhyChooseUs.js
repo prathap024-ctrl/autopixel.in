@@ -3,7 +3,7 @@ import { features } from "@/data/landingData";
 
 export default function WhyChooseUs() {
   return (
-    <section className="bg-blue-100 py-24 border-b-2 sm:py-32 text-gray-900">
+    <section className="bg-gray-900 py-24 sm:py-32 text-white">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid max-w-3xl gap-16 lg:max-w-none lg:grid-cols-2 lg:items-center">
           {/* Text Section */}
@@ -38,7 +38,7 @@ export default function WhyChooseUs() {
           <div className="flex justify-center lg:justify-end">
             <Image
               alt="Illustration of AI Automation Dashboard"
-              src="/image1.svg"
+              src="/image04.jpg"
               width={500}
               height={400}
               className="w-full max-w-md lg:max-w-lg"

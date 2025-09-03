@@ -16,15 +16,15 @@ import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-b
 const ContactForm = () => {
   const [message, setMessage] = useState("");
   return (
-    <div className="bg-white border-t-2 border-b-2 px-4 py-12 sm:py-20 sm:px-6 lg:px-8">
+    <div className="bg-gray-900 px-4 py-12 sm:py-20 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Heading */}
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+        <h2 className="text-2xl sm:text-3xl font-bold text-white">
           Start Your Project
         </h2>
 
         {/* Form */}
-        <form className="mt-8 space-y-6">
+        <form className="mt-8 space-y-6 text-white">
           {/* Row 1 */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="flex flex-col gap-2">
@@ -116,7 +116,7 @@ const ContactForm = () => {
               maxLength={500}
               rows={4}
             />
-            <div className="text-right text-xs text-gray-500">
+            <div className="text-right text-xs text-white">
               {message.length}/500 characters
             </div>
           </div>
@@ -124,7 +124,7 @@ const ContactForm = () => {
           {/* Button */}
           <div>
             <InteractiveHoverButton
-              className="border-2 border-gray-900"
+              className="border-2 border-white text-gray-900"
               type="submit"
             >
               Send Message
