@@ -10,7 +10,7 @@ import { CalendarDays, ArrowRight, Clock, TrendingUp, BookOpen, Lightbulb } from
 
 const Blog = () => {
   return (
-    <section className="relative bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 py-16 sm:py-24 overflow-hidden">
+    <section className="relative bg-gradient-to-b from-slate-950 via-gray-900 to-slate-800 py-16 sm:py-24 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500 via-transparent to-transparent"></div>

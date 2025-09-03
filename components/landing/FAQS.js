@@ -66,7 +66,7 @@ const FAQSection = () => {
   const categories = [...new Set(faqs.map(faq => faq.category))];
 
   return (
-    <section className="relative bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 py-20 sm:py-28 overflow-hidden">
+    <section className="relative bg-gradient-to-b from-slate-950 via-gray-900 to-slate-800 px-4 py-20 sm:py-28 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-l from-blue-500 to-purple-600 rounded-full filter blur-3xl"></div>
@@ -177,7 +177,7 @@ const FAQSection = () => {
                           <span className="flex-1">{faq.question}</span>
                         </div>
                       </AccordionTrigger>
-                      <AccordionContent className="pb-6 pt-2 text-muted-foreground leading-relaxed">
+                      <AccordionContent className="pb-6 pt-2 text-black leading-relaxed">
                         <div className="ml-20 pl-3 border-l-2 border-blue-200">
                           {faq.answer}
                         </div>

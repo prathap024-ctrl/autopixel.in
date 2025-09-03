@@ -48,21 +48,21 @@ const CallToAction = () => {
 
               {/* Benefits Grid */}
               <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <Card className="border-green-200 bg-green-50/50">
+                <Card className="border-green-200 bg-white">
                   <CardContent className="flex items-center space-x-2 p-3">
                     <Target className="w-5 h-5 text-green-600" />
                     <span className="text-sm font-semibold text-green-800">98% Accuracy Rate</span>
                   </CardContent>
                 </Card>
 
-                <Card className="border-blue-200 bg-blue-50/50">
+                <Card className="border-blue-200 bg-white">
                   <CardContent className="flex items-center space-x-2 p-3">
                     <TrendingUp className="w-5 h-5 text-blue-600" />
                     <span className="text-sm font-semibold text-blue-800">ROI in 30 Days</span>
                   </CardContent>
                 </Card>
 
-                <Card className="border-purple-200 bg-purple-50/50">
+                <Card className="border-purple-200 bg-white">
                   <CardContent className="flex items-center space-x-2 p-3">
                     <Clock className="w-5 h-5 text-purple-600" />
                     <span className="text-sm font-semibold text-purple-800">24/7 Operation</span>
