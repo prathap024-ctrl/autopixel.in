@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const FooterLayout = () => {
   return (
-    <footer className="relative bg-white text-gray-900 px-6 py-16">
+    <footer className="relative bg-gradient-to-br from-slate-950 via-gray-900 to-slate-800 text-white px-6 py-16">
       <div className="max-w-7xl mx-auto grid gap-10 sm:grid-cols-2 md:grid-cols-4">
         {/* Logo and Description */}
         <div className="space-y-4">
@@ -14,7 +14,7 @@ const FooterLayout = () => {
             alt="AutoPixel Logo"
             width={150}
             height={150}
-            className="h-auto w-auto"
+            className="h-auto w-auto bg-white rounded-full"
           />
           <p className="text-sm leading-relaxed">
             <span className="font-semibold text-lg">AutoPixel</span>
@@ -28,22 +28,22 @@ const FooterLayout = () => {
           <h6 className="text-base font-bold uppercase mb-3">Services</h6>
           <ul className="space-y-2 text-sm">
             <li>
-              <Link href="/" className="hover:text-blue-600 transition-colors">
+              <Link href="/" className=" transition-colors">
                 AI Voice Agents
               </Link>
             </li>
             <li>
-              <Link href="/" className="hover:text-blue-600 transition-colors">
+              <Link href="/" className=" transition-colors">
                 Multi-Channel Outreach
               </Link>
             </li>
             <li>
-              <Link href="/" className="hover:text-blue-600 transition-colors">
+              <Link href="/" className=" transition-colors">
                 Funnels & Landing Pages
               </Link>
             </li>
             <li>
-              <Link href="/" className="hover:text-blue-600 transition-colors">
+              <Link href="/" className=" transition-colors">
                 Automation Systems
               </Link>
             </li>
@@ -57,7 +57,7 @@ const FooterLayout = () => {
             <li>
               <Link
                 href="/about"
-                className="hover:text-blue-600 transition-colors"
+                className=" transition-colors"
               >
                 About Us
               </Link>
@@ -65,7 +65,7 @@ const FooterLayout = () => {
             <li>
               <Link
                 href="/contact"
-                className="hover:text-blue-600 transition-colors"
+                className=" transition-colors"
               >
                 Contact
               </Link>
@@ -73,7 +73,7 @@ const FooterLayout = () => {
             <li>
               <Link
                 href="/careers"
-                className="hover:text-blue-600 transition-colors"
+                className=" transition-colors"
               >
                 Careers
               </Link>
@@ -81,7 +81,7 @@ const FooterLayout = () => {
             <li>
               <Link
                 href="/blog"
-                className="hover:text-blue-600 transition-colors"
+                className=" transition-colors"
               >
                 Blog
               </Link>
@@ -96,7 +96,7 @@ const FooterLayout = () => {
             <li>
               <Link
                 href="/terms"
-                className="hover:text-blue-600 transition-colors"
+                className=" transition-colors"
               >
                 Terms of Use
               </Link>
@@ -104,7 +104,7 @@ const FooterLayout = () => {
             <li>
               <Link
                 href="/privacy"
-                className="hover:text-blue-600 transition-colors"
+                className=" transition-colors"
               >
                 Privacy Policy
               </Link>
@@ -112,7 +112,7 @@ const FooterLayout = () => {
             <li>
               <Link
                 href="/cookies"
-                className="hover:text-blue-600 transition-colors"
+                className=" transition-colors"
               >
                 Cookie Policy
               </Link>
@@ -122,7 +122,7 @@ const FooterLayout = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="mt-12 text-center text-sm text-gray-600">
+      <div className="mt-12 text-center text-sm text-gray-200">
         © {new Date().getFullYear()} AutoPixel. All rights reserved.
       </div>
 

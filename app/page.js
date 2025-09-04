@@ -6,7 +6,6 @@ import { LoaderTwo } from "@/components/ui/loader";
 import { useEffect } from "react";
 import FloatingDock from "@/layouts/mobilemenu";
 import LandingPage from "@/components/LandingPage";
-import HeroGeometric from "@/components/theme/HeroBackground";
 
 export default function Home() {
   const loading = useStore((state) => state.isLoading);
@@ -33,7 +32,6 @@ export default function Home() {
         </div>
       ) : (
         <>
-          <HeroGeometric />
           <LandingPage />
           <FloatingDock />
           {/*<VapiWidget apiKey={apiKey} assistantId={assistantId} />*/}
