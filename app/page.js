@@ -5,7 +5,7 @@ import useStore from "@/store/zustand";
 import { LoaderTwo } from "@/components/ui/loader";
 import { useEffect } from "react";
 import FloatingDock from "@/layouts/mobilemenu";
-import LandingPage from "@/components/LandingPage";
+import LandingPage from "@/components/landing";
 
 export default function Home() {
   const loading = useStore((state) => state.isLoading);
@@ -27,7 +27,7 @@ export default function Home() {
     <div>
       <ScrollProgress />
       {loading ? (
-        <div className="w-full h-screen flex items-center justify-center bg-gray-900 backdrop-blur-2xl">
+        <div className="w-full h-screen flex items-center justify-center bg-white backdrop-blur-2xl">
           <LoaderTwo />
         </div>
       ) : (
